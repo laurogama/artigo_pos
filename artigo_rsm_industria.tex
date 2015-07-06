@@ -414,17 +414,25 @@ In recent years, wireless sensor networks (WSNs) have gained worldwide attention
 
 
 \subsubsection{Network topology}
-The target for the proposed network are indoor buildings with air conditioning and artificial ligthning.
+The target for the proposed network are indoor buildings with air conditioning and artificial lightning.
 These types of building normally range to up to hundred of meters of built area with many partitions between the areas.
-The nodes dont need to communicate between themselves, only with the server.
+The nodes don’t need to communicate between themselves, only with the server.
 These characteristics make the star network topology the most adequate to be implemented.
 In this topology each sensor node connects directly with the central hub, sending and receiving information.
-This communication is made over wifi where each node connects with the hub and receives an ip address.
+This communication is made over WIFI where each node connects with the hub and receives an IP address.
 Each node has an internal identification in hash format that is sent with each message.
+The message payload from each sensor may change according with the hardware so the message format must be flexible.
+
+
+\subsubsection{Central Hub}
+The central hub was implemented using an raspberry pi 2 model B running a flask application. \cite{Flask}
+This application was a http server with an REST API responsible to manage communication between nodes and other devices connected to the system.\cite{Fielding2000}
 
 \subsubsection{Message Format}
-Each message is sent individually to the hub to be processed.
-The method is an http Command POST with an json payload.
+The messages sent from the sensor node to the central  Hub are in the MQTT format.
+
+MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging “machine-to-machine” (M2M) or “Internet of Things” world of connected devices, and for mobile applications where bandwidth and battery power are at a premium.\cite{mqtt}
+The messages from the central hub to a client device are in the Json format.
 JSON (JavaScript Object Notation) is a lightweight data-interchange format. \cite{Json}
 \begin{lstlisting}
 {
@@ -435,10 +443,6 @@ JSON (JavaScript Object Notation) is a lightweight data-interchange format. \cit
 	}
 }
 \end{lstlisting}
-
-\subsubsection{Central Hub}
-The central hub was implemented using an raspberry pi 2 model B running a flask application. \cite{Flask}
-This application was a http server with an REST API responsible to manage communication between nodes and other devices connected to the system.\cite{Fielding2000}
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -541,20 +545,9 @@ This application was a http server with an REST API responsible to manage commun
 The conclusion goes here.
 
 
-
-
-% conference papers do not normally have an appendix
-
-
 % use section* for acknowledgment
 \section*{Acknowledgment}
-
-
 The authors would like to thank their families for their love, care, kindness, patience, and unfailing trust.
-
-
-
-
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
