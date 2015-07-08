@@ -410,10 +410,8 @@ Wireless sensor networks have advantages over wired networks because the sensor 
 \hfill July 1, 2015
 
 \subsection{Sensor networks}
-In recent years, wireless sensor networks (WSNs) have gained worldwide attention for use in different applications. Sensor nodes are spatially distributed across a large area of interest to sense, measure, and gather information and transmit the data to the user. The nodes are typically equipped with radio transceivers, micro-controllers, and batteries. They are small in size, inexpensive, and could be deployed in large numbers. They can be used in applications such as military target tracking and surveillance, natural disaster relief, biomedical health monitoring , and industrial automation.\cite{Cheffena2012}
-Each of these nodes can sense, measure, and gather information from the environment and, based on some local decision process, they can transmit the sensed data to the user. The advances in Micro-Electro-Mechanical Systems (MEMS) technology, wireless communications, and digital electronics have
-facilitated the development of small, low-power, multifunctional WSN platforms, labeled by some authors as “smart sensor nodes”. These sensor nodes1
- are in general equipped with one or more sensors (e.g. mechanical, thermal, biological), a microprocessor, memory, a power supply, a radio and one or more actuators.\cite{Ribeiro2010}
+In recent years, wireless sensor networks (WSNs) have gained worldwide attention for use in different applications. Sensor nodes are spatially distributed across a large area of interest to sense, measure, and gather information and transmit the data to the user. The nodes are typically equipped with radio transceivers, micro-controllers, and batteries.  These sensor nodes are in general equipped with one or more sensors (e.g. mechanical, thermal, biological)\cite{Ribeiro2010}. They are small in size, inexpensive, and could be deployed in large numbers. They can be used in applications such as military target tracking and surveillance, natural disaster relief, biomedical health monitoring , and industrial automation.\cite{Cheffena2012}
+Each of these nodes can sense, measure, and gather information from the environment and, based on some local decision process, they can transmit the sensed data to the user \cite{Ribeiro2010}.
 
 
 \subsubsection{Network topology}
@@ -447,6 +445,13 @@ This application was a http server with an REST API responsible to manage commun
 The messages sent from the sensor node to the central  Hub are in the MQTT format.
 
 MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging “machine-to-machine” (M2M) or “Internet of Things” world of connected devices, and for mobile applications where bandwidth and battery power are at a premium\cite{mqtt}.
+
+MQTT is a publish/subscribe messaging system that allows clients to publish messages without concerning themselves about their eventual destination; messages are sent to an MQTT broker where they may be retained.
+
+ The messages' payloads are just a sequence of bytes, up to 256MB, with no requirements placed on the format of those payloads and with the MQTT protocol usually adding a fixed header of two bytes to most messages.
+ 
+Other clients can subscribe to these messages and get updated by the broker when new messages arrive. To allow for the variety of possible situations where MQTT can be put to use, it lets clients and brokers set a "Quality of Service" on a per-message basis from "fire and forget" to "confirmed delivery". MQTT also has a very light API, with all of five protocol methods, making it easy to learn and recall, but there's also support for SSL-encrypted connections and username/password authentication for clients to brokers.
+
 The messages from the central hub to a client device are in the Json format.
 JSON (JavaScript Object Notation) is a lightweight data-interchange format\cite{Json}.
 \begin{lstlisting}
