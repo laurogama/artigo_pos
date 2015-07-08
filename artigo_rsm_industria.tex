@@ -400,7 +400,7 @@ The proposal of a low cost, easy interface and customizable sensor module to be 
 % no \IEEEPARstart
 The dynamic nature of industries present a challenge to wired networks and the pressures of competivity and cost efficiency apply many constraints to development.
 
-Wireless sensor networks have advantages over wired networks because the sensor nodes are may be installed without changes in existent infrastructure by a relative small price. \cite{PavithraL2015}
+Wireless sensor networks have advantages over wired networks because the sensor nodes are may be installed without changes in existent infrastructure by a relative small price\cite{PavithraL2015}.
 
 
 
@@ -410,30 +410,45 @@ Wireless sensor networks have advantages over wired networks because the sensor 
 \hfill July 1, 2015
 
 \subsection{Sensor networks}
-In recent years, wireless sensor networks (WSNs) have gained worldwide attention for use in different applica- tions. Sensor nodes are spatially distributed across a large area of interest to sense, measure, and gather information and transmit the data to the user. The nodes are typically equipped with radio transceivers, micro-controllers, and batteries. They are small in size, inexpensive, and could be deployed in large numbers. They can be used in applications such as military target tracking and surveillance, natural disaster relief, biomedical health monitoring , and industrial automation.\cite{Cheffena2012}
+In recent years, wireless sensor networks (WSNs) have gained worldwide attention for use in different applications. Sensor nodes are spatially distributed across a large area of interest to sense, measure, and gather information and transmit the data to the user. The nodes are typically equipped with radio transceivers, micro-controllers, and batteries. They are small in size, inexpensive, and could be deployed in large numbers. They can be used in applications such as military target tracking and surveillance, natural disaster relief, biomedical health monitoring , and industrial automation.\cite{Cheffena2012}
+Each of these nodes can sense, measure, and gather information from the environment and, based on some local decision process, they can transmit the sensed data to the user. The advances in Micro-Electro-Mechanical Systems (MEMS) technology, wireless communications, and digital electronics have
+facilitated the development of small, low-power, multifunctional WSN platforms, labeled by some authors as “smart sensor nodes”. These sensor nodes1
+ are in general equipped with one or more sensors (e.g. mechanical, thermal, biological), a microprocessor, memory, a power supply, a radio and one or more actuators.\cite{Ribeiro2010}
 
 
 \subsubsection{Network topology}
 The target for the proposed network are indoor buildings with air conditioning and artificial lightning.
 These types of building normally range to up to hundred of meters of built area with many partitions between the areas.
 The nodes don’t need to communicate between themselves, only with the server.
+Short-range wireless technologies such as IEEE 802.15.4 in mesh network configuration are widely considered to be cost-effective solution for use in industrial settings\cite{Cheffena2012}.
 These characteristics make the star network topology the most adequate to be implemented.
+
 In this topology each sensor node connects directly with the central hub, sending and receiving information.
 This communication is made over WIFI where each node connects with the hub and receives an IP address.
 Each node has an internal identification in hash format that is sent with each message.
 The message payload from each sensor may change according with the hardware so the message format must be flexible.
 
 
+\subsubsection{Sensor Node}
+The sensor nodes are embedded systems composed of a microcontroller receiving signals from sensors converted via an Analog Digital Converter.
+Each signal must be converted to an appropriated scale and packaged in a message to the Central Hub.
+The following subjects are being monitored: Temperature, humidity, noise, luminance, and flamable gas presence.
+
+The Sensor node must be fault resilient and able to restart in case of failure.
+A Lipo battery is used to provide energy backup to the node in case of power shortage.
+
+
 \subsubsection{Central Hub}
-The central hub was implemented using an raspberry pi 2 model B running a flask application. \cite{Flask}
-This application was a http server with an REST API responsible to manage communication between nodes and other devices connected to the system.\cite{Fielding2000}
+The central hub was implemented using an raspberry pi 2 model B running a flask application\cite{Flask}.
+This application was a http server with an REST API responsible to manage communication between nodes and other devices connected to the system\cite{Fielding2000}.
+
 
 \subsubsection{Message Format}
 The messages sent from the sensor node to the central  Hub are in the MQTT format.
 
-MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging “machine-to-machine” (M2M) or “Internet of Things” world of connected devices, and for mobile applications where bandwidth and battery power are at a premium.\cite{mqtt}
+MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging “machine-to-machine” (M2M) or “Internet of Things” world of connected devices, and for mobile applications where bandwidth and battery power are at a premium\cite{mqtt}.
 The messages from the central hub to a client device are in the Json format.
-JSON (JavaScript Object Notation) is a lightweight data-interchange format. \cite{Json}
+JSON (JavaScript Object Notation) is a lightweight data-interchange format\cite{Json}.
 \begin{lstlisting}
 {
 	"id": "123u9u8y3873979739739643867321",
@@ -442,6 +457,7 @@ JSON (JavaScript Object Notation) is a lightweight data-interchange format. \cit
 		"ilumination": 210
 	}
 }
+
 \end{lstlisting}
 
 % An example of a floating figure using the graphicx package.
@@ -542,7 +558,8 @@ JSON (JavaScript Object Notation) is a lightweight data-interchange format. \cit
 
 
 \section{Conclusion}
-The conclusion goes here.
+In this article an Architecture for Wireless sensor networks for monitoring Environmental factors is presented.
+The model takes into account the need for constant data analysis and transmission in heavy electronic noise environment.
 
 
 % use section* for acknowledgment
