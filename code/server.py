@@ -1,4 +1,6 @@
+import json
 import logging
+from datetime import datetime
 
 from flask import Flask
 import pika
@@ -18,6 +20,10 @@ def hello_world():
 
 def queue_callback(ch, method, properties, body):
     print " [x] Received %r" % (body,)
+    message = json.loads(body)
+    message['received_timestamp'] = datetime.now()
+    print(message)
+
 
 def declare_exchanges(channel, exchanges):
     result = channel.queue_declare(exclusive=True)

@@ -442,7 +442,7 @@ This application was a http server with an REST API responsible to manage commun
 
 
 \subsubsection{Message Format}
-The messages sent from the sensor node to the central  Hub are in the MQTT format.
+The messages are sent from the sensor node to the central  Hub using the MQTT protocol.
 
 MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging “machine-to-machine” (M2M) or “Internet of Things” world of connected devices, and for mobile applications where bandwidth and battery power are at a premium\cite{mqtt}.
 
@@ -454,7 +454,7 @@ Other clients can subscribe to these messages and get updated by the broker when
 
 The broker utilized in the implementation was RabbitMQ through the python package Pika. Pika is a pure-Python implementation of the AMQP 0-9-1 protocol that tries to stay fairly independent of the underlying network support library\cite{Pika}.
 
-The messages from the central hub to a client device are in the Json format.
+The message payload is formatted using in the Json format.
 JSON (JavaScript Object Notation) is a lightweight data-interchange format\cite{Json}.
 \begin{lstlisting}
 {
