@@ -16,28 +16,20 @@ def hello_world():
     return 'Hello World!'
 
 
-def create_queues(channel, queues):
-    for new_queue in queues:
-        channel.queue_declare(queue=new_queue)
-        channel.basic_consume(queue_callback,
-                              queue=new_queue)
-
-
 def queue_callback(ch, method, properties, body):
     print " [x] Received %r" % (body,)
-    ch.basic_ack(delivery_tag=method.delivery_tag)
-
 
 def declare_exchanges(channel, exchanges):
-    with channel.queue_declare(exclusive=True) as result:
-        for exchange in exchanges:
-            channel.exchange_declare(exchange=exchange.name,
-                                     type=exchange.type)
-            channel.queue_bind(exchange=exchange.name,
-                               queue=result.method.queue)
-        channel.basic_consume(queue_callback, queue=result.method.queue,
-                              no_ack=True)
-        channel.start_consuming()
+    result = channel.queue_declare(exclusive=True)
+    for new_exchange in exchanges:
+        channel.exchange_declare(exchange=new_exchange['name'],
+                                 type=new_exchange['type'])
+        channel.queue_bind(
+            exchange=new_exchange['name'], queue=result.method.queue)
+
+    channel.basic_consume(queue_callback, queue=result.method.queue,
+                          no_ack=True)
+    channel.start_consuming()
 
 
 def connect_to_rabbitmq():
@@ -54,4 +46,5 @@ def connect_to_rabbitmq():
 
 if __name__ == '__main__':
     if connect_to_rabbitmq():
+        print("Connected to rabbitmMQ Broker")
         app.run()
