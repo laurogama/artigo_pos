@@ -1,8 +1,12 @@
+dominate==2.1.12
 Flask==0.10.1
+Flask-Bootstrap==3.3.5.3
+Flask-SQLAlchemy==2.0
 itsdangerous==0.24
 Jinja2==2.7.3
 MarkupSafe==0.23
+pika==0.9.14
+python-dateutil==2.4.2
+six==1.9.0
+SQLAlchemy==1.0.6
 Werkzeug==0.10.4
-pika==0.9.8
-
-

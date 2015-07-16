@@ -1,27 +1,63 @@
 import json
 import logging
-from datetime import datetime
+from dateutil.parser import parse
 
-from flask import Flask
+from flask import Flask, render_template
+from flask.ext.bootstrap import Bootstrap
+from flask.ext.sqlalchemy import Model, SQLAlchemy
 import pika
 from pika.exceptions import AMQPConnectionError
+from sqlalchemy import Integer, Column, DateTime
+
+from settings import SQLITE_TEST_DB
 
 app = Flask(__name__)
+Bootstrap(app)
 QUEUES = ['sensors']
 EXCHANGES = [{"name": 'logs', "type": 'fanout'}]
-
 logging.basicConfig()
-
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLITE_TEST_DB
+db = SQLAlchemy(app)
 
 
 def queue_callback(ch, method, properties, body):
     print " [x] Received %r" % (body,)
     message = json.loads(body)
+    try:
+        msg = Message(message)
+        db.session.add(msg)
+        db.session.commit()
+    except Exception:
+        raise
     print(message)
+
+
+class Message(db.Model):
+    __tablename__ = 'message'
+    id = Column(Integer, primary_key=True)
+    timestamp = Column(DateTime)
+    sender = Column(Integer)
+    temperature = Column(Integer)
+    humidity = Column(Integer)
+    noise = Column(Integer)
+    ilumination = Column(Integer)
+    carbon_monoxide = Column(Integer)
+
+    def __init__(self, message):
+        try:
+            self.timestamp = parse(message['timestamp'])
+            self.sender = message['id']
+            self.humidity = message['data']['humidity']
+            self.ilumination = message['data']['ilumination']
+            self.temperature = message['data']['temperature']
+            self.noise = message['data']['noise']
+            self.carbon_monoxide = message['data']['carbon_monoxide']
+        except:
+            raise
+
+    def __repr__(self):
+        return "Message {} from {}, at {} ".format(self.id, self.sender,
+                                                   self.timestamp)
 
 
 def declare_exchanges(channel, exchanges):
@@ -49,7 +85,15 @@ def connect_to_rabbitmq():
         return False
 
 
+@app.route('/')
+def index():
+    msgs = Message.query.limit(100).all()
+    print(msgs)
+    return render_template('show_messages.html', messages=msgs)
+
+
 if __name__ == '__main__':
+    # db.create_all()
+    app.run(port=9001)
     if connect_to_rabbitmq():
         print("Connected to rabbitmMQ Broker")
-        app.run()
