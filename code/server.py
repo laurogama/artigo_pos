@@ -21,7 +21,6 @@ def hello_world():
 def queue_callback(ch, method, properties, body):
     print " [x] Received %r" % (body,)
     message = json.loads(body)
-    message['received_timestamp'] = datetime.now()
     print(message)
 
 

@@ -1,6 +1,7 @@
 import json
 import logging
 from random import randint
+from datetime import datetime
 
 __author__ = 'laurogama'
 # !/usr/bin/env python
@@ -16,12 +17,17 @@ channel.exchange_declare(exchange='logs',
                          type='fanout')
 routing_key = sys.argv[1] if len(sys.argv) > 1 else 'anonymous.info'
 
+
 def random_message():
     return {
         "id": randint(1, 1000),
+        "timestamp": str(datetime.now()),
         "data": {
             "temperature": randint(1, 100),
-            "ilumination": randint(1, 300)
+            "humidity": randint(1, 300),
+            "ilumination": randint(1, 300),
+            "noise": randint(1, 300),
+            "carbon_monoxide": randint(1, 300),
         }
     }
 
