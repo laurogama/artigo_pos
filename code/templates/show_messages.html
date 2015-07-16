@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+    <table class="table table-responsive">
+
+        {% for message in messages %}
+            <tr>{{ message }}</tr>
+        {% endfor %}
+    </table>
+{% endblock %}
