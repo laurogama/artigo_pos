@@ -435,17 +435,24 @@ The following subjects are being monitored: Temperature, humidity, noise, lumina
 The Sensor node must be fault resilient and able to restart in case of failure.
 The sensor node has a program called \textit{"client"} that is responsible for the data collection and transmission.
 
+The client persists data from the sensors in a SQLite\cite{Sqlite2015} database and transmits this information to the central hub.
+
 A Lipo battery is used to provide energy backup to the node in case of power shortage.
 
 
 \subsubsection{Central Hub}
-The central hub was implemented also using raspberry pi 2 model B running a computer program called \textit{"MQTT server"}, a RabbitMQ broker and  a microwebserver based on the framework flask\cite{Flask}.
+The central hub must be able to process a high volume of messages coming from the sensor nodes and to answer requisitions for information from network users.
 
-The server was responsible to listen for messages posted on the RabbitMQ broker and collect the relevant data and persist them on a SQLite\cite{Sqlite2015} database.
+The central hub was implemented also using raspberry pi 2 model B running a computer program called \textit{"MQTT server"}, a RabbitMQ broker and  a webserver based on the framework flask\cite{Flask}.
 
-The RabbitMQ broker was responsible for managing communications between nodes and the central hub.
+The server is responsible for listening for messages posted on the RabbitMQ broker and collect the relevant data and persist them in its own SQLite  database. This database has information from all nodes composing the network.
 
-The microwebserver was an application with an REST API\cite{Fielding2000} responsible to provide other devices with an method to visualize the data collected by the sensor network.
+The RabbitMQ broker is responsible for managing communications between nodes and the central hub.
+
+The webserver is an application with an REST API\cite{Fielding2000} responsible for providing users of the system with an method to visualize the data collected by the sensor network. It uses a lightweight server structure ideal for running in embedded systems.
+
+The services implemented in the central hub may be divided between data collection and communication.
+
 
 
 \subsubsection{Message Format}
