@@ -428,17 +428,24 @@ The message payload from each sensor may change according with the hardware so t
 
 
 \subsubsection{Sensor Node}
-The sensor nodes are embedded systems composed of a microcontroller receiving signals from sensors converted via an Analog Digital Converter.
+The sensor nodes are raspberry pi 2 model B \cite{Raspberry2015} running a Raspbian\cite{Raspbian2015} distribution composed of a microcontroller receiving signals from sensors.
 Each signal must be converted to an appropriated scale and packaged in a message to the Central Hub.
 The following subjects are being monitored: Temperature, humidity, noise, luminance, and flamable gas presence.
 
 The Sensor node must be fault resilient and able to restart in case of failure.
+The sensor node has a program called \textit{"client"} that is responsible for the data collection and transmission.
+
 A Lipo battery is used to provide energy backup to the node in case of power shortage.
 
 
 \subsubsection{Central Hub}
-The central hub was implemented using an raspberry pi 2 model B running a flask application\cite{Flask}.
-This application was a http server with an REST API responsible to manage communication between nodes and other devices connected to the system\cite{Fielding2000}.
+The central hub was implemented also using raspberry pi 2 model B running a computer program called \textit{"MQTT server"}, a RabbitMQ broker and  a microwebserver based on the framework flask\cite{Flask}.
+
+The server was responsible to listen for messages posted on the RabbitMQ broker and collect the relevant data and persist them on a SQLite\cite{Sqlite2015} database.
+
+The RabbitMQ broker was responsible for managing communications between nodes and the central hub.
+
+The microwebserver was an application with an REST API\cite{Fielding2000} responsible to provide other devices with an method to visualize the data collected by the sensor network.
 
 
 \subsubsection{Message Format}
