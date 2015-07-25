@@ -444,14 +444,16 @@ A Lipo battery is used to provide energy backup to the node in case of power sho
 \centering
 \includegraphics[width=3.5in]{client_diagram}
 \caption{Sensor Node Diagram}
-\label{fig_sim}
+\label{sensor_diagram}
 \end{figure}
 
 
 \subsubsection{Central Hub}
 The central hub must be able to process a high volume of messages coming from the sensor nodes and to answer requisitions for information from network users.
 
-The central hub was implemented also using raspberry pi 2 model B running a computer program called \textit{"MQTT server"}, a RabbitMQ broker and  a webserver based on the framework flask\cite{Flask}.
+The central hub was implemented also using raspberry pi 2 model B running a computer program based on Tornado\cite{Tornado2015}, a RabbitMQ broker and  a webserver based on the framework flask\cite{Flask}.
+
+Tornado is a Python web framework and asynchronous networking library. By using non-blocking network I/O, Tornado can scale to tens of thousands of open connections, making it ideal for long polling, WebSockets, and other applications that require a long-lived connection to each user.\cite{Tornado2015}
 
 The server is responsible for listening for messages posted on the RabbitMQ broker and collect the relevant data and persist them in its own SQLite  database. This database has information from all nodes composing the network.
 
@@ -465,7 +467,7 @@ The services implemented in the central hub may be divided between data collecti
 \centering
 \includegraphics[width=3.5in]{system_diagram}
 \caption{Central Hub Diagram}
-\label{fig_sim}
+\label{central_hub_diagram}
 \end{figure}
 
 
@@ -593,7 +595,6 @@ JSON (JavaScript Object Notation) is a lightweight data-interchange format\cite{
 % Note that, LaTeX2e, unlike IEEE journals/conferences, places
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
-\subsection{Sensor network}
 
 
 
