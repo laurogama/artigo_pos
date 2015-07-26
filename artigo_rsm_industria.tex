@@ -369,6 +369,11 @@ Email: lauro.gama@gmail.com}
 \IEEEauthorblockA{Universidade do Estado do Amazonas\\
 Manaus, Amazonas\\
 Email: akimurajr@gmail.com}
+\and
+\IEEEauthorblockN{Antonio de Padua Soares Junior}
+\IEEEauthorblockA{Universidade do Estado do Amazonas\\
+Manaus, Amazonas\\
+Email: antoniodepadua27@gmail.com}
 }
 
 % make the title area
@@ -379,8 +384,8 @@ Email: akimurajr@gmail.com}
 \begin{abstract}
 This paper proposes a sensor node for measuring environmental factors on industry surroundings.
 Industrial environment is regulated in varying degrees across the world by many enviromental and safety policies.
-The adherence of these policies makes necessary a continuous andd distributed measurement of different factors like temperature, noise levels and the presence of contaminants.
-The analysis of this data may reveal violations in work conditions and enviromental damage.
+The adherence of these policies makes necessary a continuous and distributed measurement of different factors like temperature, noise levels and the presence of contaminants.
+The analysis of this data may help prevent violations in work conditions and enviromental damage. Low worker productivity and mood disorders are also often related to to bad work enviroments and be combated by analysis of the enviroment.
 The proposal of a low cost, easy interface and customizable sensor module to be used in network environment will help its use.
 \end{abstract}
 
@@ -400,6 +405,8 @@ The proposal of a low cost, easy interface and customizable sensor module to be 
 
 \section{Introduction}
 % no \IEEEPARstart
+
+
 The dynamic nature of industries present a challenge to wired networks and the pressures of competivity and cost efficiency apply many constraints to development.
 
 Wireless sensor networks have advantages over wired networks because the sensor nodes are may be installed without changes in existent infrastructure by a relative small price\cite{PavithraL2015}.
@@ -411,9 +418,12 @@ Wireless sensor networks have advantages over wired networks because the sensor 
  
 \hfill July 1, 2015
 
+\section{Research Methodology}
+This is descriptive research. The source of information is secondary data from different sources like websites \& books mentioned at the end.
 \subsection{Sensor network}
 In recent years, wireless sensor networks (WSNs) have gained worldwide attention for use in different applications. Sensor nodes are spatially distributed across a large area of interest to sense, measure, and gather information and transmit the data to the user. The nodes are typically equipped with radio transceivers, micro-controllers, and batteries.  These sensor nodes are in general equipped with one or more sensors (e.g. mechanical, thermal, biological)\cite{Ribeiro2010}. They are small in size, inexpensive, and could be deployed in large numbers. They can be used in applications such as military target tracking and surveillance, natural disaster relief, biomedical health monitoring , and industrial automation.\cite{Cheffena2012}
 Each of these nodes can sense, measure, and gather information from the environment and, based on some local decision process, they can transmit the sensed data to the user \cite{Ribeiro2010}.
+This article proposes a sensor network capable of collecting data from sensors spread in a industrial environment and transmit this information to a central hub to be further analysed.
 \subsection{Design and implementation}
 
 \subsubsection{Network topology}
@@ -487,6 +497,7 @@ The broker utilized in the implementation was RabbitMQ through the python packag
 \subsubsection{Message Format}
 The message payload is formatted using in the Json format.
 JSON (JavaScript Object Notation) is a lightweight data-interchange format\cite{Json}.
+Each information corresponds to a key-value par that can be read easily by both human and computer programs.
 \begin{lstlisting}
 {
     "timestamp": "2015-07-16 15:40:49.218438",
@@ -501,6 +512,16 @@ JSON (JavaScript Object Notation) is a lightweight data-interchange format\cite{
 }
 
 \end{lstlisting}
+\subsection{Application of collected data}
+According with Woo\cite{Woo2008} the workplace can make manifest latent mood disorders, destabilize, and aggravate symptoms and courses of mood disorders among workers. This is reinforced by Sarode\cite{Sarode2014} bad work conditions related to Noise, Lightning, air quality, temperature and humidity affected both the psychological and physiological welfare of the workers, causing such conditions as eyestrain, fatigue, headache, back pain, and nausea.
+
+The information collected by the WSN can be used to profile, make adjustments and improve work conditions in the monitored environment. These improvements may impact the productivity, quality and costs of workers.
+
+
+
+
+
+
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
