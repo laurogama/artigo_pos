@@ -406,7 +406,9 @@ The proposal of a low cost, easy interface and customizable wireless sensor netw
 \section{Introduction}
 % no \IEEEPARstart
 
+With the increasing importance and subsequent regulation of the impact the industrial Environment has on the health of workers and denizens of nearby industrial areas, arises the necessity of monitoring environment factors.
 
+To analyse correctly a region the best approach is through geographically distributed data collection. To achieve this collection is necessary the implementation of a sensor network.
 The dynamic nature of industries present a challenge to wired networks and the pressures of competition and cost efficiency apply many constraints to development.
 
 Wireless sensor networks have advantages over wired networks because the sensor nodes are may be installed without changes in existent infrastructure by a relative small price\cite{PavithraL2015}.
@@ -442,14 +444,14 @@ The presented architecture is able to be scaled to a high number of sensor nodes
 \subsubsection{Sensor Node}
 The sensor nodes are raspberry pi 2 model B \cite{Raspberry2015} running a Raspbian\cite{Raspbian2015} distribution composed of a micro-controller receiving signals from sensors.
 Each signal must be converted to an appropriated scale and packaged in a message to the Central Hub.
-The following subjects are being monitored: Temperature, humidity, noise, luminance, and flamable gas presence.
+The following subjects are being monitored: Temperature, humidity, noise, luminance, and flammable gas presence.
 
-The Sensor node must be fault resilient and able to restart in case of failure.
-The sensor node has a program called \textit{"client"} that is responsible for the data collection and transmission.
+The nodes may be placed in hard to reach locations or in great quantities making a requirement of the network that the sensor node must be fault resilient and able to restart automatically in case of failure.
+Updates on the software will be made over the air through automatic processes.
+The sensor node has a program called \textit{"client"} that is responsible for the minimum running processes as life cycle besides the data collection and transmission of information.
 
-The client persists data from the sensors in a SQLite\cite{Sqlite2015} database and transmits this information to the central hub.
-
-A Lipo battery is used to provide energy backup to the node in case of power shortage.
+The client persists data from the sensors in a SQLite\cite{Sqlite2015} database and transmits this information to the central hub. In case of failure of communications the data collected may be resent in a future date.
+A Lithium polymer battery is used to provide energy backup to the node in case of power shortage. in this scenario the data transmission will be halted and only the data collection will occur.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=3.5in]{client_diagram}
@@ -493,7 +495,7 @@ The messages' payloads are just a sequence of bytes, up to 256MB, with no requir
 Other clients can subscribe to these messages and get updated by the broker when new messages arrive. To allow for the variety of possible situations where MQTT can be put to use, it lets clients and brokers set a "Quality of Service" on a per-message basis from "fire and forget" to "confirmed delivery". MQTT also has a very light API, with all of five protocol methods, making it easy to learn and recall, but there's also support for SSL-encrypted connections and username/password authentication for clients to brokers.
 
 The broker utilized in the implementation was RabbitMQ through the python package Pika. Pika is a pure-Python implementation of the AMQP 0-9-1 protocol that tries to stay fairly independent of the underlying network support library\cite{Pika}.
-
+The model takes into account the need for constant data analysis and transmission of high volumes of messages in a heavy electronic noise environments.
 \subsubsection{Message Format}
 The message payload is formatted using in the Json format.
 JSON (JavaScript Object Notation) is a lightweight data-interchange format\cite{Json}.
@@ -626,7 +628,7 @@ Temperature and humidity data may be used to adjust Air conditioning systems.
 
 \section{Conclusion}
 In this article an Architecture for Wireless sensor networks for monitoring Environmental factors is presented.
-The model takes into account the need for constant data analysis and transmission of high volumes of messages in a heavy electronic noise environment.
+Environmental monitoring through sensor networks is a promising technology. With the advances in the miniaturization of sensors and low power micro-controller systems these networks will become more prevalent and gain more applications.
 
 
 
