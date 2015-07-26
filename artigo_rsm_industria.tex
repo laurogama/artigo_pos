@@ -383,9 +383,9 @@ Email: antoniodepadua27@gmail.com}
 % in the abstract
 \begin{abstract}
 This paper proposes a sensor node for measuring environmental factors on industry surroundings.
-Industrial environment is regulated in varying degrees across the world by many enviromental and safety policies.
+Industrial environment is regulated in varying degrees across the world by many environmental and safety policies.
 The adherence of these policies makes necessary a continuous and distributed measurement of different factors like temperature, noise levels and the presence of contaminants.
-The analysis of this data may help prevent violations in work conditions and enviromental damage. Low worker productivity and mood disorders are also often related to to bad work enviroments and be combated by analysis of the enviroment.
+The analysis of this data may help prevent violations in work conditions and environmental damage. Low worker productivity and mood disorders are also often related to to bad work environments and be combated by analysis of the environment.
 The proposal of a low cost, easy interface and customizable sensor module to be used in network environment will help its use.
 \end{abstract}
 
@@ -407,7 +407,7 @@ The proposal of a low cost, easy interface and customizable sensor module to be 
 % no \IEEEPARstart
 
 
-The dynamic nature of industries present a challenge to wired networks and the pressures of competivity and cost efficiency apply many constraints to development.
+The dynamic nature of industries present a challenge to wired networks and the pressures of competition and cost efficiency apply many constraints to development.
 
 Wireless sensor networks have advantages over wired networks because the sensor nodes are may be installed without changes in existent infrastructure by a relative small price\cite{PavithraL2015}.
 
@@ -437,10 +437,10 @@ In this topology each sensor node connects directly with the central hub, sendin
 This communication is made over WIFI where each node connects with the hub and receives an IP address.
 Each node has an internal identification in hash format that is sent with each message.
 The message payload from each sensor may change according with the hardware so the message format must be flexible.
-
+The presented architecture is able to be scaled to a high number of sensor nodes connected to only one hub. This is possible because of a efficient message protocol that is able to process hundreds of messages per second\cite{Scalagent2015}.
 
 \subsubsection{Sensor Node}
-The sensor nodes are raspberry pi 2 model B \cite{Raspberry2015} running a Raspbian\cite{Raspbian2015} distribution composed of a microcontroller receiving signals from sensors.
+The sensor nodes are raspberry pi 2 model B \cite{Raspberry2015} running a Raspbian\cite{Raspbian2015} distribution composed of a micro-controller receiving signals from sensors.
 Each signal must be converted to an appropriated scale and packaged in a message to the Central Hub.
 The following subjects are being monitored: Temperature, humidity, noise, luminance, and flamable gas presence.
 
@@ -461,7 +461,7 @@ A Lipo battery is used to provide energy backup to the node in case of power sho
 \subsubsection{Central Hub}
 The central hub must be able to process a high volume of messages coming from the sensor nodes and to answer requisitions for information from network users.
 
-The central hub was implemented also using raspberry pi 2 model B running a computer program based on Tornado\cite{Tornado2015}, a RabbitMQ broker and  a webserver based on the framework flask\cite{Flask}.
+The central hub was implemented also using raspberry pi 2 model B running a computer program based on Tornado\cite{Tornado2015}, a RabbitMQ broker and  a web server based on the framework flask\cite{Flask}.
 
 Tornado is a Python web framework and asynchronous networking library. By using non-blocking network I/O, Tornado can scale to tens of thousands of open connections, making it ideal for long polling, WebSockets, and other applications that require a long-lived connection to each user.\cite{Tornado2015}
 
@@ -469,7 +469,7 @@ The server is responsible for listening for messages posted on the RabbitMQ brok
 
 The RabbitMQ broker is responsible for managing communications between nodes and the central hub.
 
-The webserver is an application with an REST API\cite{Fielding2000} responsible for providing users of the system with an method to visualize the data collected by the sensor network. It uses a lightweight server structure ideal for running in embedded systems.
+The web server is an application with an REST API\cite{Fielding2000} responsible for providing users of the system with an method to visualize the data collected by the sensor network. It uses a lightweight server structure ideal for running in embedded systems.
 
 The services implemented in the central hub may be divided between data collection and communication.
 
@@ -513,10 +513,15 @@ Each information corresponds to a key-value par that can be read easily by both 
 
 \end{lstlisting}
 \subsection{Application of collected data}
-According with Woo\cite{Woo2008} the workplace can make manifest latent mood disorders, destabilize, and aggravate symptoms and courses of mood disorders among workers. This is reinforced by Sarode\cite{Sarode2014} bad work conditions related to Noise, Lightning, air quality, temperature and humidity affected both the psychological and physiological welfare of the workers, causing such conditions as eyestrain, fatigue, headache, back pain, and nausea.
+According with Woo\cite{Woo2008} the workplace can make manifest latent mood disorders, destabilize, and aggravate symptoms and courses of mood disorders among workers. This is reinforced by Sarode\cite{Sarode2014} bad work conditions related to Noise, Lightning, air quality, temperature and humidity affected both the psychological and physiological welfare of the workers, causing such conditions as eye strain, fatigue, headache, back pain, and nausea.
 
 The information collected by the WSN can be used to profile, make adjustments and improve work conditions in the monitored environment. These improvements may impact the productivity, quality and costs of workers.
 
+The noise sensor information may be used to specify mufflers on combustion engines, the class of hear gear to be distributed to workers of a specific area or installation of acoustic insulation.
+
+Luminance data may be used to adjust automatic levels of lighting.
+
+Temperature and humidity data may be used to adjust Air conditioning systems.
 
 
 
@@ -622,13 +627,14 @@ The information collected by the WSN can be used to profile, make adjustments an
 \section{Conclusion}
 In this article an Architecture for Wireless sensor networks for monitoring Environmental factors is presented.
 The model takes into account the need for constant data analysis and transmission of high volumes of messages in a heavy electronic noise environment.
-The presented architecture is able to be scaled to a high number of nodes.
+
 
 
 % use section* for acknowledgment
 \section*{Acknowledgment}
 The authors would like to thank their families for their love, care, kindness, patience, and unfailing trust.
 
+Lauro Gama would like to thank the Paulo Feitoza Foundation for the support with this article.
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
 % adjust value as needed - may need to be readjusted if
