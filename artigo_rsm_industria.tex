@@ -365,15 +365,15 @@
 Manaus, Amazonas\\
 Email: lauro.gama@gmail.com}
 \and
-\IEEEauthorblockN{Msc, Almir Kimura Junior}
-\IEEEauthorblockA{Universidade do Estado do Amazonas\\
-Manaus, Amazonas\\
-Email: akimurajr@gmail.com}
-\and
 \IEEEauthorblockN{Antonio de Padua Soares Junior}
 \IEEEauthorblockA{Universidade do Estado do Amazonas\\
 Manaus, Amazonas\\
 Email: antoniodepadua27@gmail.com}
+\and
+\IEEEauthorblockN{Msc, Almir Kimura Junior}
+\IEEEauthorblockA{Universidade do Estado do Amazonas\\
+Manaus, Amazonas\\
+Email: akimurajr@gmail.com}
 }
 
 % make the title area
@@ -387,9 +387,14 @@ Industrial environment is regulated in varying degrees across the world by many 
 The adherence of these policies makes necessary a continuous and distributed measurement of different factors like temperature, noise levels and the presence of contaminants.
 The analysis of this data may help prevent violations in work conditions and environmental damage. Low worker productivity and mood disorders are also often related to to bad work environments and be combated by analysis of the environment.
 The proposal of a low cost, easy interface and customizable wireless sensor network to be used in industrial environment will help improve work conditions.
+
 \end{abstract}
 
+
+\begin{IEEEkeywords}
+Wireless sensor networks, Internet of Things, Environmental factors
 % no keywords
+\end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
 % page as needed:
@@ -407,6 +412,8 @@ The proposal of a low cost, easy interface and customizable wireless sensor netw
 % no \IEEEPARstart
 
 With the increasing importance and subsequent regulation of the impact the industrial Environment has on the health of workers and denizens of nearby industrial areas, arises the necessity of monitoring environment factors.
+
+In the United States the agency responsible for regulation work conditions is the  Occupational Safety \& Health Administration(OSHA)\cite{OSHA2015}.It cites many cases of work related injuries and diseases that could be prevented with the correct environment control.
 
 To analyse correctly a region the best approach is through geographically distributed data collection. To achieve this collection is necessary the implementation of a sensor network.
 The dynamic nature of industries present a challenge to wired networks and the pressures of competition and cost efficiency apply many constraints to development.
@@ -454,7 +461,7 @@ The client persists data from the sensors in a SQLite\cite{Sqlite2015} database 
 A Lithium polymer battery is used to provide energy backup to the node in case of power shortage. in this scenario the data transmission will be halted and only the data collection will occur.
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=3.5in]{client_diagram}
+\includegraphics[width=2.5in]{client_diagram}
 \caption{Sensor Node Diagram}
 \label{sensor_diagram}
 \end{figure}
@@ -463,7 +470,7 @@ A Lithium polymer battery is used to provide energy backup to the node in case o
 \subsubsection{Central Hub}
 The central hub must be able to process a high volume of messages coming from the sensor nodes and to answer requisitions for information from network users.
 
-The central hub was implemented also using raspberry pi 2 model B running a computer program based on Tornado\cite{Tornado2015}, a RabbitMQ broker and  a web server based on the framework flask\cite{Flask}.
+The central hub was implemented also using raspberry pi 2 model B running a computer program based on Tornado \cite{Tornado2015}, a RabbitMQ broker and  a web server based on the framework flask\cite{Flask}.
 
 Tornado is a Python web framework and asynchronous networking library. By using non-blocking network I/O, Tornado can scale to tens of thousands of open connections, making it ideal for long polling, WebSockets, and other applications that require a long-lived connection to each user.\cite{Tornado2015}
 
@@ -477,7 +484,7 @@ The services implemented in the central hub may be divided between data collecti
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=3.5in]{system_diagram}
+\includegraphics[width=2.5in]{system_diagram}
 \caption{Central Hub Diagram}
 \label{central_hub_diagram}
 \end{figure}
@@ -524,6 +531,7 @@ The noise sensor information may be used to specify mufflers on combustion engin
 Luminance data may be used to adjust automatic levels of lighting.
 
 Temperature and humidity data may be used to adjust Air conditioning systems.
+ 
 
 
 
@@ -628,7 +636,9 @@ Temperature and humidity data may be used to adjust Air conditioning systems.
 
 \section{Conclusion}
 In this article an Architecture for Wireless sensor networks for monitoring Environmental factors is presented.
-Environmental monitoring through sensor networks is a promising technology. With the advances in the miniaturization of sensors and low power micro-controller systems these networks will become more prevalent and gain more applications.
+Environmental monitoring through sensor networks is a promising technology. With the advances in the miniaturization of sensors and low power micro-controller systems these networks will become more prevalent and gain more applications. 
+As a result of this research was implemented a temperature and humidity sensor to monitor the work conditions of a computer data server room. These kinds of rooms normally need cold temperatures and low humidity to maintain the proper function of the machines. The prototype was used to assure that both temperature and humidity were in a range satisfactory for workers and machines.
+In the future other sensor nodes will be deployed in a office ambient to also monitor the luminance and noise.
 
 
 
