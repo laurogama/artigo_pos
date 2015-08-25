@@ -1,23 +1,13 @@
 import json
-import logging
-from dateutil.parser import parse
 
-from flask import Flask, render_template
-from flask.ext.bootstrap import Bootstrap
-from flask.ext.sqlalchemy import Model, SQLAlchemy
 import pika
+
 from pika.exceptions import AMQPConnectionError
-from sqlalchemy import Integer, Column, DateTime
 
-from settings import SQLITE_TEST_DB
+from model import Message, create_db_session
+from settings import EXCHANGES
 
-app = Flask(__name__)
-Bootstrap(app)
-QUEUES = ['sensors']
-EXCHANGES = [{"name": 'logs', "type": 'fanout'}]
-logging.basicConfig()
-app.config['SQLALCHEMY_DATABASE_URI'] = SQLITE_TEST_DB
-db = SQLAlchemy(app)
+__author__ = 'laurogama'
 
 
 def queue_callback(ch, method, properties, body):
@@ -25,10 +15,11 @@ def queue_callback(ch, method, properties, body):
     message = json.loads(body)
     try:
         msg = Message(message)
-        db.session.add(msg)
-        db.session.commit()
+        db_session.add(msg)
+        db_session.commit()
     except Exception:
-        raise
+        db_session.rollback()
+        print "db error"
     print(message)
 
 
@@ -47,6 +38,7 @@ def declare_exchanges(channel, exchanges):
 
 def connect_to_rabbitmq():
     try:
+        print "creating connection"
         connection = pika.BlockingConnection(pika.ConnectionParameters(
             'localhost'))
         channel = connection.channel()
@@ -57,15 +49,10 @@ def connect_to_rabbitmq():
         return False
 
 
-@app.route('/')
-def index():
-    msgs = Message.query.limit(100).all()
-    print(msgs)
-    return render_template('show_messages.html', messages=msgs)
-
-
 if __name__ == '__main__':
-    # db.create_all()
-    app.run(port=9001)
-    if connect_to_rabbitmq():
-        print("Connected to rabbitmMQ Broker")
+    try:
+        db_session = create_db_session()
+        if connect_to_rabbitmq():
+            print "connected sucessfully"
+    except KeyboardInterrupt:
+        print "Exiting gracefully"
