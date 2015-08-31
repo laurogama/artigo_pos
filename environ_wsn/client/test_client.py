@@ -5,7 +5,14 @@ from datetime import datetime
 from time import sleep
 
 # from sensors import Sensor
+from sensors import Sensor
 
+HOST = '10.8.0.21'
+USERNAME = 'sensor_node'
+PASSWORD = '123456'
+PORT = '5672'
+# amqp://user:pass@host:10000/vhost
+rabbit_uri = 'amqp://{}:{}@{}:{}'.format(USERNAME, PASSWORD, HOST, PORT)
 __author__ = 'laurogama'
 # !/usr/bin/env python
 import pika
@@ -27,12 +34,12 @@ def random_message(id):
     }
 
 
-def send_message(id, data= None):
+def send_message(id, data=None):
     if data is None:
         message = json.dumps(random_message(id))
     else:
-        message = json.dumps({"data": data, "id": id, "timestamp": datetime.now()})
-
+        message = json.dumps(
+            {"data": data, "id": id, "timestamp": str(datetime.now())})
 
     channel.basic_publish(exchange='logs',
                           routing_key=routing_key,
@@ -41,29 +48,28 @@ def send_message(id, data= None):
 
 
 def create_rabbitmq_connection():
+    credentials = pika.PlainCredentials(USERNAME, PASSWORD)
     connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+        host=HOST, credentials=credentials))
     channel = connection.channel()
     channel.exchange_declare(exchange='logs',
                              type='fanout')
     return connection, channel
 
 
-# def collect_data(id):
-#     msg_counter = 0
-#     try:
-#         sensors = Sensor()
-#         last_data = datetime.now()
-#         while True:
-#             sensor_response = sensors.read_sensors()
-#             if last_data > sensor_response['timestamp']:
-#                 send_message(id, sensor_response)
-#                 last_data = sensor_response['timestamp']
-#                 msg_counter += 1
-#             sleep(2)
-#     except KeyboardInterrupt:
-#         print "messages sent: {}".format(msg_counter)
-#         connection.close()
+def collect_data(id):
+    msg_counter = 0
+    try:
+        sensors = Sensor()
+        while True:
+            sensor_response = sensors.read_sensors()
+            print sensor_response
+            send_message(id, sensor_response)
+            msg_counter += 1
+            sleep(2)
+    except KeyboardInterrupt:
+        print "messages sent: {}".format(msg_counter)
+        connection.close()
 
 
 def create_fake_data(id):
@@ -81,5 +87,5 @@ def create_fake_data(id):
 if __name__ == '__main__':
     routing_key = 'anonymous.info'
     connection, channel = create_rabbitmq_connection()
-    # collect_data()
-    create_fake_data(1)
+    collect_data(1)
+    # create_fake_data(1)
