@@ -4,17 +4,18 @@ from random import randint
 from datetime import datetime
 from time import sleep
 
+from sensors import Sensor
+
 __author__ = 'laurogama'
 # !/usr/bin/env python
 import pika
-import sys
 
 logging.basicConfig()
 
 
-def random_message():
+def random_message(id=None):
     return {
-        "id": randint(1, 1000),
+        "id": id,
         "timestamp": str(datetime.now()),
         "data": {
             "temperature": randint(1, 100),
@@ -26,8 +27,10 @@ def random_message():
     }
 
 
-def send_message():
-    message = ' '.join(sys.argv[2:]) or json.dumps(random_message())
+def send_message(id, sensor_data):
+    message = {"data": sensor_data}
+    message = json.dumps(random_message(id))
+
     channel.basic_publish(exchange='logs',
                           routing_key=routing_key,
                           body=message)
@@ -45,10 +48,18 @@ def create_rabbitmq_connection():
 
 if __name__ == '__main__':
     connection, channel = create_rabbitmq_connection()
+    msg_counter = 0
     try:
-        routing_key = sys.argv[1] if len(sys.argv) > 1 else 'anonymous.info'
+        routing_key = 'anonymous.info'
+        sensors = Sensor()
+        last_data = datetime.now()
         while True:
-            send_message()
-            # sleep(1)
+            sensor_response = sensors.read_sensors()
+            if last_data > sensor_response['timestamp']:
+                send_message(msg_counter, sensor_response)
+                last_data = sensor_response['timestamp']
+                msg_counter += 1
+            sleep(2)
     except KeyboardInterrupt:
+        print "messages sent: {}".format(msg_counter)
         connection.close()

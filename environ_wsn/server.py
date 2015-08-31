@@ -1,14 +1,15 @@
 import json
 import logging
-from dateutil.parser import parse
 
 from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
-from flask.ext.sqlalchemy import Model, SQLAlchemy
-import pika
-from pika.exceptions import AMQPConnectionError
-from sqlalchemy import Integer, Column, DateTime
 
+from flask.ext.sqlalchemy import SQLAlchemy
+import pika
+
+from pika.exceptions import AMQPConnectionError
+
+from message_handler import handle_msg
 from settings import SQLITE_TEST_DB
 
 app = Flask(__name__)
@@ -24,9 +25,12 @@ def queue_callback(ch, method, properties, body):
     print " [x] Received %r" % (body,)
     message = json.loads(body)
     try:
-        msg = Message(message)
-        db.session.add(msg)
-        db.session.commit()
+        msg = handle_msg(message)
+        if msg is not False:
+            db.session.add(msg)
+            db.session.commit()
+        else:
+            print("error on msg")
     except Exception:
         raise
     print(message)
