@@ -13,12 +13,6 @@ def verify_fields(msg):
     return True
 
 
-def handle_msg(msg):
-    if verify_fields(msg):
-        return Message(msg)
-    return False
-
-
 def flatten_dict(d):
     def expand(key, value):
         if isinstance(value, dict):

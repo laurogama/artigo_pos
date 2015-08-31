@@ -1,0 +1,7 @@
+SQLAlchemy
+pandas
+seaborn
+numpy
+scikit-learn
+pika==0.9.14
+PySide

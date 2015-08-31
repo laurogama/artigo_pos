@@ -45,7 +45,7 @@ class TSL2561:
                 self.i2c.write8(0x81, 0x12)     # set gain = 16X and timing = 402 mSec
                 if (self.debug):
                     print "Setting high gain"
-            self.gain=gain;                     # safe gain for calculation
+            self.gain=gain                     # safe gain for calculation
             time.sleep(self.pause)              # pause for integration (self.pause must be bigger than integration time)
 
 
