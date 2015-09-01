@@ -14,7 +14,7 @@ def load_data():
     query = "SELECT * from message"
     return pd.read_sql_table("message", engine,
                              columns=['id', 'timestamp', 'temperature',
-                                      'humidity', 'sender'],
+                                      'humidity', 'sender', 'ilumination'],
                              parse_dates={
                                  "timestamp": "YYYY-MM-DD HH:MM:SS.SSS"})
 
@@ -30,9 +30,11 @@ def visualize_data(df):
     # sns.distplot(df['temperature'])
     # sns.pairplot(data=df, vars=['temperature', 'humidity'])
     # sns.plt.show()
-    df.plot(columns=['humidity','temperature'], x='timestamp')
+    df.plot(x='timestamp', y='temperature')
     plt.show()
     df.plot(x='timestamp', y='humidity')
+    plt.show()
+    df.plot(x='timestamp', y='ilumination')
     plt.show()
 
 if __name__ == '__main__':
