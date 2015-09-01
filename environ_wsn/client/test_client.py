@@ -38,8 +38,11 @@ def send_message(id, data=None):
     if data is None:
         message = json.dumps(random_message(id))
     else:
-        message = json.dumps(
-            {"data": data, "id": id, "timestamp": str(datetime.now())})
+        message = data
+        message['id'] = id
+        message['timestamp'] = str(datetime.now())
+        message = json.dumps(message)
+        print message
 
     channel.basic_publish(exchange='logs',
                           routing_key=routing_key,
@@ -63,7 +66,6 @@ def collect_data(id):
         sensors = Sensor()
         while True:
             sensor_response = sensors.read_sensors()
-            print sensor_response
             send_message(id, sensor_response)
             msg_counter += 1
             sleep(2)
