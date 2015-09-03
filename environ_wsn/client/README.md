@@ -12,10 +12,9 @@ install the dependencies
  ```python
     sudo python setup.py install
  ```
+ ## Pins
  
- ### Pins
- 
-|Sensor      | Pin
+Sensor      | Pin
 --------------------
 |temperature | GPIO 4
 |Light sensor| GPIO2 GPIO3
