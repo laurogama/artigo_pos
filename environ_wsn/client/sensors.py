@@ -19,15 +19,17 @@ class Sensor():
         self.tsl = TSL2561()
         self.data = {}
         self.response = {}
+        self.gas_threshold = 100
 
     def read_sensors(self):
-        print "reading temperature and humidity"
+        # print "reading temperature and humidity"
         self.read_temperature_humidity()
         self.read_lux()
         self.read_gas_presence()
         self.read_sound_level()
         self.response['data'] = self.data
         self.response['timestamp'] = str(datetime.now())
+        # print self.response
         return self.response
 
     def read_temperature_humidity(self):
@@ -43,8 +45,8 @@ class Sensor():
         # guarantee the timing of calls to read the sensor).
         # If this happens try again!
         if humidity is not None and temperature is not None:
-            print 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,
-                                                               humidity)
+            # print 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature,
+            #                                                    humidity)
             self.data.update({"temperature": temperature, "humidity": humidity})
             return (True, {"temperature": temperature, "humidity": humidity})
         else:
@@ -53,7 +55,7 @@ class Sensor():
 
     def read_lux(self):
         lux = self.tsl.readLux()
-        print "Lux: {}".format(lux)
+        # print "Lux: {}".format(lux)
         self.data.update({"luminance": lux})
 
     def read_gas_presence(self):
@@ -69,10 +71,11 @@ class Sensor():
         ser.write('S')
         sleep(1)
         data = ser.readline()
-        print "Gas presence: {}".format(data)
-        ser.write('r')
-        sleep(10)
+        self.data.update({"gas": int(data)})
+        # print "Gas presence: {}".format(data)
         ser.write('g')
+        if int(data) > self.gas_threshold:
+            ser.write('r')
         ser.close()
 
     def read_sound_level(self):

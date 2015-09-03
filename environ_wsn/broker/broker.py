@@ -7,7 +7,7 @@ from model import Message, create_db_session
 from settings import EXCHANGES
 
 __author__ = 'laurogama'
-MESSAGE_FIELDS = ['humidity', 'luminance', 'temperature', 'carbon_monoxide',
+MESSAGE_FIELDS = ['humidity', 'luminance', 'temperature', 'gas',
                   'noise']
 
 

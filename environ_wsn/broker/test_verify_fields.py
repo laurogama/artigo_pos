@@ -17,7 +17,7 @@ class TestVerify_fields(TestCase):
                 "humidity": randint(1, 300),
                 "luminance": randint(1, 300),
                 "noise": randint(1, 300),
-                "carbon_monoxide": randint(1, 300),
+                "gas": randint(1, 300),
             }
         }
         self.assertTrue(verify_fields(mock_message))
@@ -30,7 +30,7 @@ class TestVerify_fields(TestCase):
                 "humidity": randint(1, 300),
                 "luminance": randint(1, 300),
                 "noise": randint(1, 300),
-                "carbon_monoxide": randint(1, 300),
+                "gas": randint(1, 300),
             }
         }
         self.assertFalse(verify_fields(mock_message))

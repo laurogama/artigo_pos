@@ -4,6 +4,6 @@ DATABASE_FILE = 'test.db'
 SQLITE_TEST_DB = 'sqlite:///{}'.format(DATABASE_FILE)
 
 # MESSAGE_FIELDS = ['timestamp', 'id', 'humidity', 'ilumination', 'temperature',
-#                   'noise', 'carbon_monoxide']
+#                   'noise', 'gas']
 
 MESSAGE_FIELDS = ['timestamp', 'id', 'humidity', 'temperature']

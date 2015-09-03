@@ -38,7 +38,7 @@ class Message(Base):
     humidity = Column(Integer)
     noise = Column(Integer)
     luminance = Column(Integer)
-    carbon_monoxide = Column(Integer)
+    gas = Column(Integer)
 
     def __init__(self, message):
         try:
@@ -48,7 +48,7 @@ class Message(Base):
             self.luminance = message['data']['luminance']
             self.temperature = message['data']['temperature']
             self.noise = message['data']['noise']
-            self.carbon_monoxide = message['data']['carbon_monoxide']
+            self.gas = message['data']['gas']
         except:
             raise
 

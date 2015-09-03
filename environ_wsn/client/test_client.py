@@ -7,7 +7,7 @@ from time import sleep
 # from sensors import Sensor
 from sensors import Sensor
 
-HOST = '10.8.0.21'
+HOST = '10.8.0.142'
 USERNAME = 'sensor_node'
 PASSWORD = '123456'
 PORT = '5672'
@@ -29,7 +29,7 @@ def random_message(id):
             "humidity": randint(1, 99),
             # "ilumination": randint(1, 300),
             # "noise": randint(1, 300),
-            # "carbon_monoxide": randint(1, 300),
+            # "gas": randint(1, 300),
         }
     }
 
@@ -42,7 +42,7 @@ def send_message(id, data=None):
         message['id'] = id
         message['timestamp'] = str(datetime.now())
         message = json.dumps(message)
-        print message
+        # print message
 
     channel.basic_publish(exchange='logs',
                           routing_key=routing_key,
