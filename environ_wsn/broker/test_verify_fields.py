@@ -15,7 +15,7 @@ class TestVerify_fields(TestCase):
             "data": {
                 "temperature": randint(1, 100),
                 "humidity": randint(1, 300),
-                "ilumination": randint(1, 300),
+                "luminance": randint(1, 300),
                 "noise": randint(1, 300),
                 "carbon_monoxide": randint(1, 300),
             }
@@ -28,7 +28,7 @@ class TestVerify_fields(TestCase):
             "data": {
                 "temperature": randint(1, 100),
                 "humidity": randint(1, 300),
-                "ilumination": randint(1, 300),
+                "luminance": randint(1, 300),
                 "noise": randint(1, 300),
                 "carbon_monoxide": randint(1, 300),
             }

@@ -37,7 +37,7 @@ class Message(Base):
     temperature = Column(Integer)
     humidity = Column(Integer)
     noise = Column(Integer)
-    ilumination = Column(Integer)
+    luminance = Column(Integer)
     carbon_monoxide = Column(Integer)
 
     def __init__(self, message):
@@ -45,7 +45,7 @@ class Message(Base):
             self.timestamp = parse(message['timestamp'])
             self.sender = message['id']
             self.humidity = message['data']['humidity']
-            self.ilumination = message['data']['ilumination']
+            self.luminance = message['data']['luminance']
             self.temperature = message['data']['temperature']
             self.noise = message['data']['noise']
             self.carbon_monoxide = message['data']['carbon_monoxide']

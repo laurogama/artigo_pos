@@ -14,7 +14,7 @@ def load_data():
     query = "SELECT * from message"
     return pd.read_sql_table("message", engine,
                              columns=['id', 'timestamp', 'temperature',
-                                      'humidity', 'sender', 'ilumination'],
+                                      'humidity', 'sender', 'luminance'],
                              parse_dates={
                                  "timestamp": "YYYY-MM-DD HH:MM:SS.SSS"})
 
@@ -34,7 +34,7 @@ def visualize_data(df):
     plt.show()
     df.plot(x='timestamp', y='humidity')
     plt.show()
-    df.plot(x='timestamp', y='ilumination')
+    df.plot(x='timestamp', y='luminance')
     plt.show()
 
 if __name__ == '__main__':
