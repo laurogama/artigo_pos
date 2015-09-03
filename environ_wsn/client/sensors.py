@@ -1,8 +1,8 @@
-from datetime import datetime, time
+from datetime import datetime
+from time import sleep
 
 import serial
 import Adafruit_DHT
-from time import sleep
 from TSL2561 import TSL2561
 
 __author__ = 'laurogama'
@@ -53,7 +53,7 @@ class Sensor():
 
     def read_lux(self):
         lux = self.tsl.readLux()
-        print lux
+        print "Lux: {}".format(lux)
         self.data.update({"luminance": lux})
 
     def read_gas_presence(self):
@@ -68,13 +68,13 @@ class Sensor():
         )
         ser.write('S')
         sleep(1)
+        data = ser.readline()
+        print "Gas presence: {}".format(data)
+        ser.write('r')
+        sleep(10)
+        ser.write('g')
         ser.close()
-        ser1 = serial.Serial(
-            port='/dev/ttyAMA0',
-            baudrate=9600)
-        data = ser1.read(1024)
-        print data
-        ser1.close()
+
     def read_sound_level(self):
         pass
 
