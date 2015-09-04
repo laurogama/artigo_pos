@@ -1,5 +1,8 @@
+import numpy as np
 import pandas as pd
 import matplotlib
+
+COLUMNS = ['temperature', 'humidity', 'luminance', 'gas']
 
 matplotlib.use('Qt4Agg')
 import matplotlib.pylab as plt
@@ -11,9 +14,8 @@ SQL_ENGINE = 'sqlite:////home/laurogama/pos-uea/artigo final/artigo_pos/environ_
 
 
 def load_data():
-    query = "SELECT * from message"
     return pd.read_sql_table("message", engine,
-                             columns=['id', 'timestamp', 'temperature',
+                             columns=['timestamp', 'temperature',
                                       'humidity', 'luminance', 'gas'],
                              parse_dates=True)
 
@@ -26,6 +28,7 @@ def visualize_data(df):
     print df.dtypes
     print df.head()
     print df.describe()
+    # print df.describe()
     plot_graphics(df)
 
 
@@ -36,6 +39,11 @@ def plot_graphics(df):
     df.plot(x='timestamp', y='luminance')
     df.plot(x='timestamp', y='gas')
     plt.show()
+
+
+def replace(group, stds):
+    group[np.abs(group - group.mean()) > stds * group.std()] = np.nan
+    return group
 
 
 if __name__ == '__main__':
