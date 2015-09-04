@@ -1,68 +1,8 @@
-
-%% bare_conf.tex
-%% V1.4a
-%% 2014/09/17
-%% by Michael Shell
-%% See:
-%% http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8a or later) with an IEEE
-%% conference paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
-%% User assumes all risk.
-%% In no event shall IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%
-%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
-%%                    bare_conf.tex, bare_jrnl.tex, bare_conf_compsoc.tex,
-%%                    bare_jrnl_compsoc.tex, bare_jrnl_transmag.tex
-%%*************************************************************************
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. IEEE's font choices and paper sizes can       ***
-% *** trigger bugs that do not appear when using other class files.       ***                          ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
-
-\documentclass[conference]{IEEEtran}
-% Some Computer Society conferences also require the compsoc mode option,
-% but others use the standard conference format.
+\documentclass[letterpaper]{IEEEtran}
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
 % manually specify the path to it like:
-% \documentclass[conference]{../sty/IEEEtran}
-
+% \documentclass[journal]{../sty/IEEEtran}
 
 % LAURO
 \usepackage{listings}
@@ -93,11 +33,27 @@
 % END LAURO
 
 
+
+
 % Some very useful LaTeX packages include:
 % (uncomment the ones you want to load)
 
 
 % *** MISC UTILITY PACKAGES ***
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{capt-of}
+\usepackage{amsmath}
+%\usepackage[spanish]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{rotating}
+\usepackage{subfig}
+\usepackage{hyphenat}
+%\usepackage[papersize={216mm,330mm},tmargin=15mm,bmargin=15mm,lmargin=15mm,rmargin=15mm]{geometry}
+
+
+% (utf8x si hay problemas)
 %
 %\usepackage{ifpdf}
 % Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
@@ -122,7 +78,7 @@
 
 % *** CITATION PACKAGES ***
 %
-%\usepackage{cite}
+\usepackage{cite}
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
 % \cite{} output to follow that of IEEE. Loading the cite package will
@@ -145,10 +101,8 @@
 
 % *** GRAPHICS RELATED PACKAGES ***
 %
-\usepackage{graphicx}
-\graphicspath{{images/}}
 \ifCLASSINFOpdf
-  %\usepackage[pdftex]{graphicx}
+  % \usepackage[pdftex]{graphicx}
   % declare the path(s) where your graphic files are
   % \graphicspath{{../pdf/}{../jpeg/}}
   % and their extensions so you won't have to specify these with
@@ -168,7 +122,7 @@
 % graphicx was written by David Carlisle and Sebastian Rahtz. It is
 % required if you want graphics, photos, etc. graphicx.sty is already
 % installed on most LaTeX systems. The latest version and documentation
-% can be obtained at: 
+% can be obtained at:
 % http://www.ctan.org/tex-archive/macros/latex/required/graphics/
 % Another good source of documentation is "Using Imported Graphics in
 % LaTeX2e" by Keith Reckdahl which can be found at:
@@ -323,6 +277,47 @@
 
 
 
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and
+% Axel Sommerfeldt. This package may be useful when used in conjunction with
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a
+% page by themselves.
+
+
+
+
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
 %\usepackage{url}
@@ -347,6 +342,9 @@
 
 
 \begin{document}
+%\pagestyle{empty}
+\pagenumbering{gobble} % este comando quita el numero de pagina
+
 %
 % paper title
 % Titles are generally capitalized except for words such as a, an, and, as,
@@ -355,46 +353,94 @@
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
 \title{Wireless Sensor Network for Monitoring Environmental Factors in Industrial Installations}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Lauro Manoel Lima da Gama, Antonio de Padua Soares Junior, and Msc, Almir Kimura Junior% <-this % stops a space
+%\thanks{This paragraph of the first footnote will contain the  date on which you submitted your paper for review. It will also contain support %information, including sponsor and financial support acknowledgment. For example, ''This work was supported in part by the U.S. Department of %Commerce under Grant BS123456''. }
+\thanks{This article was submitted on July 27th, 2015}
+\thanks{Lauro Manoel Lima da Gama is with Paulo Feitoza Foundation, Manaus, AM, BRA (e-mail: lauro.gama@gmail.com).}% <-this % stops a space
+\thanks{Antonio de Padua Soares Junior, is with Vortice Technology and Innovation, Manaus, AM, BRA (e-mail: antoniodepadua27@gmail.com).}
+\thanks{Msc, Almir Kimura Junior is with the Electrical Engineering Department, Universidade do Estado do Amazonas, Manaus, AM, BRA, (e-mail: akimurajr@gmail.com).}}
+
+% note the % following the last \IEEEmembership and also \thanks -
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+%
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
 
 
-% author names and affiliations
-% use a multiple column layout for up to three different
-% affiliations
-\author{\IEEEauthorblockN{Lauro Manoel Lima da Gama}
-\IEEEauthorblockA{Universidade do Estado do Amazonas\\
-Manaus, Amazonas\\
-Email: lauro.gama@gmail.com}
-\and
-\IEEEauthorblockN{Antonio de Padua Soares Junior}
-\IEEEauthorblockA{Universidade do Estado do Amazonas\\
-Manaus, Amazonas\\
-Email: antoniodepadua27@gmail.com}
-\and
-\IEEEauthorblockN{Msc, Almir Kimura Junior}
-\IEEEauthorblockA{Universidade do Estado do Amazonas\\
-Manaus, Amazonas\\
-Email: akimurajr@gmail.com}
-}
+
+% The paper headers
+\markboth{IEEE CHILECON2015 - ISSN xxxx-xxxx, P�g. xxxx.xxx. Santiago de Chile, 28 al 30 de Octubre 2015}%
+{Gama \MakeLowercase{\textit{et al.}}: Wireless Sensor Network for Monitoring Environmental Factors in Industrial Installations}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+%
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2014 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
 
 % make the title area
 \maketitle
-
+%\thispagestyle{empty}
 % As a general rule, do not put math, special symbols or citations
-% in the abstract
+% in the abstract or keywords.
 \begin{abstract}
+\noindent \textbf{Abstract}\\
 This paper proposes a wireless sensor network for measuring environmental factors on industry surroundings.
 Industrial environment is regulated in varying degrees across the world by many environmental and safety policies.
 The adherence of these policies makes necessary a continuous and distributed measurement of different factors like temperature, noise levels and the presence of contaminants.
 The analysis of this data may help prevent violations in work conditions and environmental damage. Low worker productivity and mood disorders are also often related to to bad work environments and be combated by analysis of the environment.
 The proposal of a low cost, easy interface and customizable wireless sensor network to be used in industrial environment will help improve work conditions.
-
 \end{abstract}
 
-
+% Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
 Wireless sensor networks, Internet of Things, Environmental factors
-% no keywords
 \end{IEEEkeywords}
+
+
+
+
 
 % For peer review papers, you can put extra information on the cover
 % page as needed:
@@ -409,9 +455,22 @@ Wireless sensor networks, Internet of Things, Environmental factors
 
 
 \section{Introduction}
-% no \IEEEPARstart
-
-With the increasing importance and subsequent regulation of the impact the industrial Environment has on the health of workers and denizens of nearby industrial areas, arises the necessity of monitoring environment factors.
+% The very first letter is a 2 line initial drop letter followed
+% by the rest of the first word in caps.
+%
+% form to use if the first word consists of a single letter:
+% \IEEEPARstart{A}{demo} file is ....
+%
+% form to use if you need the single drop letter followed by
+% normal text (unknown if ever used by IEEE):
+% \IEEEPARstart{A}{}demo file is ....
+%
+% Some journals put the first two words in caps:
+% \IEEEPARstart{T}{his demo} file is ....
+%
+% Here we have the typical use of a "T" for an initial drop letter
+% and "HIS" in caps to complete the first word.
+\IEEEPARstart{W}{ith} the increasing importance and subsequent regulation of the impact the industrial Environment has on the health of workers and denizens of nearby industrial areas, arises the necessity of monitoring environment factors.
 
 In the United States the agency responsible for regulation work conditions is the  Occupational Safety \& Health Administration(OSHA)\cite{OSHA2015}.It cites many cases of work related injuries and diseases that could be prevented with the correct environment control.
 
@@ -419,13 +478,6 @@ To analyse correctly a region the best approach is through geographically distri
 The dynamic nature of industries present a challenge to wired networks and the pressures of competition and cost efficiency apply many constraints to development.
 
 Wireless sensor networks have advantages over wired networks because the sensor nodes are may be installed without changes in existent infrastructure by a relative small price\cite{PavithraL2015}.
-
-
-
-% You must have at least 2 lines in the paragraph with the drop letter
-% (should never be an issue)
- 
-
 \section{Research Methodology}
 This is descriptive research. The source of information is secondary data from different sources like websites \& books mentioned at the end.
 \subsection{Sensor network}
@@ -437,7 +489,7 @@ This article proposes a sensor network capable of collecting data from sensors s
 \subsubsection{Network topology}
 The target for the proposed network are indoor buildings with air conditioning and artificial lightning.
 These types of building normally range to up to hundred of meters of built area with many partitions between the areas.
-The nodes don’t need to communicate between themselves, only with the server.
+The nodes don?t need to communicate between themselves, only with the server.
 Short-range wireless technologies such as IEEE 802.15.4 in mesh network configuration are widely considered to be cost-effective solution for use in industrial settings\cite{Cheffena2012}.
 These characteristics make the star network topology the most adequate to be implemented.
 
@@ -492,7 +544,7 @@ The services implemented in the central hub may be divided between data collecti
 \subsubsection{Message Protocol}
 The messages are sent from the sensor node to the central  Hub using the MQTT protocol.
 
-MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging “machine-to-machine” (M2M) or “Internet of Things” world of connected devices, and for mobile applications where bandwidth and battery power are at a premium\cite{mqtt}.
+MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging ?machine-to-machine? (M2M) or ?Internet of Things? world of connected devices, and for mobile applications where bandwidth and battery power are at a premium\cite{mqtt}.
 
 MQTT is a publish/subscribe messaging system that allows clients to publish messages without concerning themselves about their eventual destination; messages are sent to an MQTT broker where they may be retained.
 
@@ -522,7 +574,6 @@ Each information corresponds to a key-value par that can be read easily by both 
 \end{lstlisting}
 \subsection{Implementation and tests}
 To validate the proposed system a prototype was implemented to collect temperature, humidity and luminance data to monitor the work conditions of a computer data server room. These kinds of rooms normally need low temperatures and low humidity to maintain the proper function of the machines. In the other way the luminance levels need to meet the minimum required to not strain workers eyesight. The prototype was used to assure that all three factors were in a range satisfactory for workers and machines.
-
 A sample of the data is described below
 
 and matplotlib\cite{Hunter:2007} was used to created
@@ -537,106 +588,7 @@ The noise sensor information may be used to specify mufflers on combustion engin
 Luminance data may be used to adjust automatic levels of lighting.
 
 Temperature and humidity data may be used to adjust Air conditioning systems.
- 
 
-
-
-
-
-
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure}
-
-% Note that IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
-
-
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat[]), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
-% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
-% labels, the optional argument to \subfloat must be present. If a
-% subcaption is not desired, just leave its contents blank,
-% e.g., \subfloat[].
-
-
-% An example of a floating table. Note that, for IEEE style tables, the
-% \caption command should come BEFORE the table and, given that table
-% captions serve much like titles, are usually capitalized except for words
-% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
-% and up, which are usually not capitalized unless they are the first or
-% last word of the caption. Table text will default to \footnotesize as
-% IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
-
-
-% Note that the IEEE does not put floats in the very first column
-% - or typically anywhere on the first page for that matter. Also,
-% in-text middle ("here") positioning is typically not used, but it
-% is allowed and encouraged for Computer Society conferences (but
-% not Computer Society journals). Most IEEE journals/conferences use
-% top floats exclusively. 
-% Note that, LaTeX2e, unlike IEEE journals/conferences, places
-% footnotes above bottom floats. This can be corrected via the
-% \fnbelowfloat command of the stfloats package.
 
 
 
@@ -654,30 +606,10 @@ For long range monitoring further study will be necessary to choose the best net
 The authors would like to thank their families for their love, care, kindness, patience, and unfailing trust.
 
 Lauro Gama would like to thank the Paulo Feitoza Foundation for the support with this article.
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
 
-% references section
+%-------------------------------------------------------------------------
+\bibliographystyle{ieeetr}
+\bibliography{artigo_chilecon_108}
 
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-\bibliography{artigo_rsm_industria}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-
-% that's all folks
 \end{document}
-
 

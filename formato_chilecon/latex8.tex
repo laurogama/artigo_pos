@@ -1,0 +1,463 @@
+
+%
+%  $Description: Author guidelines and sample document in LaTeX 2.09$
+%
+%  $Author: ienne $
+%  $Date: 1995/09/15 15:20:59 $
+%  $Revision: 1.4 $
+%
+
+\documentclass[times, 10pt,twocolumn]{article}
+\usepackage{latex8}
+\usepackage{times}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{mathrsfs}
+%\usepackage{matlab}
+\usepackage{hyperref}
+%\usepackage{portada}
+\usepackage{multirow}
+\usepackage{fancyhdr}
+%\usepackage{algoritmo}
+\usepackage{epsfig}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{ae}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{rotating}
+%\documentstyle[times,art10,twocolumn,latex8]{article}
+
+%-------------------------------------------------------------------------
+% take the % away on next line to produce the final camera-ready version
+\pagestyle{empty}
+
+%-------------------------------------------------------------------------
+\begin{document}
+
+\title{Validación Experimental Pasiva de la Cinemática de un Dispositivo Háptico CyberForce}
+
+\author{Juan D. Ramírez-Zamora$^{1}$, Gerardo M. Terán-Martínez$^{2}$, Omar A. Domínguez-Ramírez$^{1}$, \\Luis E. Ramos-Velasco$^{1}$, Vicente Parra-Vega$^{3}$\\
+$^{1}$Centro de Investigación en Tecnologías de la Información y Sistemas, UAEH.\\
+$^{2}$Universidad Politécnica de Pachuca \\
+$^{3}$CINVESTAV Saltillo\\ 
+juanda\_ zam@hotmail.com, gerardomtz\_20@hotmail.com, omar@uaeh.edu.mx,\\ lramos@uaeh.edu.mx, vicente.parra@cinvestav.edu.mx
+% For a paper whose authors are all at the same institution,
+% omit the following lines up until the closing ``}''.
+% Additional authors and addresses can be added with ``\and'',
+% just like the second author.
+%\and
+%Second Author\\
+%Institution2\\
+%First line of institution2 address\\ Second line of institution2 address\\
+%SecondAuthor@institution2.com\\
+}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+En el presente trabajo de investigación se presenta la validación experimental del modelo cinemático directo e inverso de posición y velocidad del dispositivo háptico CyberForce , y una contribución en guiado háptico pasivo en laberintos virtuales con propósitos de rehabilitación asistencial; para ello se emplean estrategias de control pasiva-robusta en espacios articular y operacional, y planificación de movimiento con generador de tiempo base para convergencia en tiempo finito.
+\end{abstract}
+
+
+
+%-------------------------------------------------------------------------
+\Section{Introduction}
+
+En la práctica de la ingeniería comúnmente existe la necesidad de llevar un sistema físico hasta un punto determinado con cierto grado de exactitud. Un sistema de control es el conjunto de técnicas y herramientas que guían un sistema físico hasta las condiciones deseadas. El fundamento del control automático consiste en calcular una acción correctiva, $u$ en
+función del error, $e$ que se define como la diferencia entre la salida actual de la planta, $y$ y de la salida deseada, $y_{ref}$. Esto se conoce como control realimentado y está conformado por tres bloques básicos: un
+proceso, planta o sistema a controlar, un sensor y un controlador, como se muestra en la
+Figura \ref{retro} \cite{ogata2}.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes/retro.jpg}
+    \caption{Diagrama de bloques del control retroalimentado.}
+    \label{retro}
+    \end{figure}
+
+El presente trabajo se propone el desarrollo e implementación de un controlador pasivo-robusto clásico tipo proporcional-derivativo sobre un dispositivo háptico tipo Cyber Force y realizar un estudio comparativo sobre el efecto/cambio que representa el uso del modelo cinemático de la plataforma robótica en trayectorias de convergencia de posición bajo las mismas condiciones de operación.
+
+%-------------------------------------------------------------------------
+
+\section{Dispositivo háptico CyberForce}
+
+El sistema mayordomo - exoesqueleto (CyberTeam), es constituido de un
+mecanismo de eslabones articulados de 6 grados de libertad (CyberForce) que garantiza el
+posicionamiento y orientación de un exoesqueleto de 5 grados de libertad (CyberGrasp) empleado en tareas de manipulación en ambientes virtuales dinámicos deformables, para ello emplea como
+retroalimentación con un guante de 22 sensores de fibra de carbono (CyberGlove)
+para medición de flexión-extensión y aducción-abducción de falanges.
+
+
+
+\subsection{Componentes del sistema}
+El sistema CyberForce consta de una unidad de control de fuerza (IV-FFCU-SA900) (FCU) y de una fuente de alimentación (IV-FPSU-SA900-120 o -230) (PSU), así como de un cable de datos Cyberforce (HAR908-LF), un cable de control Cyberforce (HAR904-LF), un cable de alimentación de motor (HAR903-LF), un cable de datos CyberGrasp (HAR708-LF), para medición de flexión-extensión y aducción-abducción de falanges se emplea un sistema CyberGlove. Como medida de seguridad a la operación del dispositivo se incluye un pedal (CPED-D-STD) \cite{cyber}.
+%el cual se explicación de manera clara y concisa en la sección \ref{Apendice A}.
+
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=.3\textwidth]{ImagenesC/cyber.jpg}
+    \caption{Dispositivo háptico CyberForce.}
+    \label{cyber}
+    \end{figure}
+
+\section{Validación experimental pasiva de la cinemática}
+
+Con el propósito de validar a la cinemática de posición y velocidad del dispositivo háptico CyberForce en planificación de movimiento, se propone la aplicación de una estrategia de control pasiva-robusta clásica, tipo proporcional-derivativa en sus versiones articular (Ecuación \ref{PD_A}) y cartesiana (Ecuación \ref{PD_C}) \cite{CRM}.
+
+\begin{equation}
+\tau=-K_{\theta}S_{\theta}
+\label{PD_A}
+\end{equation}
+
+\begin{equation}
+f=-K_{x}S_{x}
+\label{PD_C}
+\end{equation}
+
+En donde, $S_\theta   = \frac{{d\tilde \theta }}{{dt}} + \alpha _\theta  \tilde \theta$ representa al error extendido en el espacio articular; y $S_x  = \frac{{d\tilde x}}{{dt}} + \alpha _x \tilde x$ corresponde al error extendido en el espacio cartesiano; $\tilde \theta = \theta - \theta_{d} \in \mathbb{R} ^{3x1}$ constituye al vector de error de posición articular, $\tilde x = x - x_{d}  \in \mathbb{R} ^{3x1}$ constituye al vector de error de coordenadas operacionales; $\theta_{d}$ y $x_{d}$ representan al conjunto de trayectorias articulares y cartesianas deseadas respectivamente; $K_{\theta} \in \mathbb{R}^{3x3}$, $K_{x} \in \mathbb{R}^{3x3}$, $\alpha_{\theta} \in \mathbb{R}^{3x3}$ y $\alpha_{x} \in \mathbb{R}^{3x3}$ corresponden a matrices de ganancias de control simétricas y definidas positivas.
+
+\subsection{Planificación de movimiento}
+\label{planificacion}
+
+La tarea $T_{DH}(t)$, como consigna de movimiento aplicada al dispositivo háptico, es constituida por tres trayectorias; $T_{DH-1}(t)$ corresponde a la regulación basada en seguimiento operacional, con el propósito de resolver la dinámica inercial debido al estado de reposo y de movimiento, así como establecer un tiempo de convergencia $t_{b1}$. La trayectoria $T_{DH-2}(t)$, corresponde al lugar geométrico de una circunferencia (Ecuación \ref{parametrica}), con un tiempo de duración $T_{C2}=2\pi/\omega$; con $\omega$ como la velocidad angular, $r$ el radio, $[X_c,Y_c,Z_c]$ el centro de la circunferencia y $T_{Cn}=t_{bn}-t_{bn-1}$ es el tiempo de convergencia de la n-ésima trayectoria de $T_{DH}(t)$. $T_{DH-3}(t)$ corresponde a la regulación basada en seguimiento hasta la condición inicial de la tarea.
+
+\[
+T_{DH} (t) = \left\{ \begin{array}{l}
+ T_{DH - 1} (t)\quad ;\quad t_{b0} \le t \le t_{b1}  \\
+ T_{DH - 2} (t)\quad ;\quad t_{b1} < t \le t_{b2}  \\
+ T_{DH - 3} (t)\quad ;\quad t_{b2} < t \le t_{b3}  \\
+ \end{array} \right.
+\]
+
+\begin{equation}
+\label{parametrica}
+\left[
+  \begin{array}{c}
+    X_{d}(t) \\
+    Y_{d}(t) \\
+    Z_{d}(t) \\
+  \end{array}
+\right]
+=
+\left[
+  \begin{array}{c}
+    X_{c}+rcos(\omega t)\\
+    Y_{c}\\
+    Z_{c}+rsin(\omega t)\\
+  \end{array}
+\right]
+\end{equation}
+
+Las trayectorias $T_{DH-1}(t)$ y $T_{DH-3}(t)$, son definidas por el polinomio de la Ecuación \ref{pol_O5}, con un tiempo base $T_{Cn}$; y corresponde a la trayectoria de seguimiento operacional o articular de acuerdo a la ley de control aplicada, con una conducta suave que limita esfuerzos electromecánicos del mecanismo de eslabones articulados, y garantiza convergencia en tiempo finito. Su derivada $\dot{\xi_{n}}(t)$ contribuye a que la velocidad en el tiempo de convergencia sea cero, y cuyo valor máximo sea en la mitad de dicho tiempo.
+
+\begin{equation}
+\label{pol_O5}
+\xi_{n}(t)=10\frac{(t-t_{bn-1})^{3}}{{T_{Cn}} ^{3}}-15\frac{(t-t_{bn-1})^{4}}{{T_{Cn}}^{4}}+6\frac{(t-t_{bn-1})^{5}}{{T_{Cn}}^{5}}
+\end{equation}
+
+Dada la planificación de movimiento en el espacio operacional, las trayectorias que involucran a la regulación basada en seguimiento son descritas como:
+
+\begin{itemize}
+\item $ T_{DH - 1} (t):\left\{ {(X_c  + r)\xi (t),Y_c\xi (t),Z_c\xi (t)} \right\}\quad en\quad t_{b0}  \le t \le t_{b1}$
+
+\item $ T_{DH - 3} (t):\left\{ {X_0\xi (t),Y_0\xi (t),Z_0\xi (t)} \right\}\quad en\quad t_{b2}  < t \le t_{b3} $
+\end{itemize}
+
+%Las trayectorias para seguimiento en el espacio articular son obtenidas con el uso de la cinemática inversa de posición y velocidad definidas en la Sección \ref{modelo_cin}.
+
+\section{Resultado experimental en seguimiento pasivo}
+%
+\subsection{Circunferencia}
+
+La Tabla \ref{Parametros1}, contiene los parámetros numéricos requeridos para la tarea de seguimiento $T_{DH}(t)$ y las ganancias de control. El desempeño en el espacio de trabajo operacional, bajo las estrategias de control en comparación con la referencia, es presentado en la Figura \ref{cir_des}.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  Parámetro   & Valor
+   \\ \hline \hline
+  $K_{\theta}$                 & [75,75,75]            \\ \hline
+  $\alpha_{\theta}$            & [0.01,0.01,0.01]      \\ \hline
+  $K_{x}$                      & [300,300,300]         \\ \hline
+  $\alpha_{x}$                 & [0.01,0.01,0.01]      \\ \hline
+  $t_{b0}$                      & 0 $s$                 \\ \hline
+  $t_{b1}$     				   & 8 $s$                 \\ \hline
+  $t_{b2}$     				   & 24 $s$                \\ \hline
+  $t_{b3}$     				   & 32 $s$                \\ \hline
+  $r$     					   & 0.1 $m$               \\ \hline
+  [$X_{c}$,$Y_{c}$,$Z_{c}$]    & [0,0.508,0.235] $m$   \\ \hline
+  [$X_{0}$,$Y_{0}$,$Z_{0}$]    & [0,0.506,0.492] $m$   \\ \hline
+  \hline
+\end{tabular}
+    \captionof{table}{Valores para la implementación experimental.}
+    \label{Parametros1}
+\end{center}
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Imagenes//esp_art.jpg}
+    \caption{Desempeño en el espacio de trabajo.}
+    \label{cir_des}
+    \end{figure}
+%
+En las Figuras \ref{cir_art} y \ref{cir_car} se muestran los resultados  de posiciones articulares y operacionales, en las Figuras \ref{cirv_art} y \ref{cirv_car} se muestran las velocidades de las componentes articulares y operacionales,  donde para el caso del control articular se implementa el MCIP y el MCIV para el cálculo del control, el MCDP y MCDV para la representación en el en el espacio operacional y la relación par fuerza para enviar los valores de $\tau$ transformados a fuerza $f$ en la serie de tiempo.
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Imagenes//art//pos_art.jpg}
+    \caption{Posición en controlador articular.}
+    \label{cir_art}
+    \end{figure}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Imagenes//car//pos_car.jpg}
+    \caption{Posición en controlador cartesiano.}
+    \label{cir_car}
+    \end{figure}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Imagenes//art//vel_art.jpg}
+    \caption{Velocidad en controlador  articular.}
+    \label{cirv_art}
+    \end{figure}
+
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Imagenes//car//vel_car.jpg}
+    \caption{Velocidad en controlador cartesiano.}
+    \label{cirv_car}
+    \end{figure}
+
+%
+En la Figura \ref{cir_err} se muestran los errores de posición articular y operacional.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//err_art.jpg}
+    \caption{Error de posición articular y cartesiano.}
+    \label{cir_err}
+    \end{figure}
+
+En la Figura \ref{cir_ext1} y \ref{cir_ext2} se muestra el error extendido de posición articular y operacional.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//art//error_ext1.jpg}
+    \caption{Error extendido articular}
+    \label{cir_ext1}
+    \end{figure}
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//car//error_ext2.jpg}
+    \caption{Error extendido cartesiano}
+    \label{cir_ext2}
+    \end{figure}
+
+
+En la siguiente Figura \ref{cir_fue} se muestra la fuerza aplicada por el controlador articular y cartesiano.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//fue_art.jpg}
+    \caption{Señal de Fuerza}
+    \label{cir_fue}
+    \end{figure}
+
+Para este experimento se muestra la energía consumida por los controladores como se muestra en la Figura \ref{cir_ene}.
+
+
+   \begin{figure}[H]
+  \centering
+ \includegraphics[width=.4\textwidth]{Imagenes//energia.jpg}
+    \caption{Energía.}
+    \label{cir_ene}
+    \end{figure}
+
+Por ultimo se muestra la gráfica de manipulailidad de la trayectoria en el tiempo en la Figura \ref{cir_mani1}, \ref{cir_mani2}.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes/mani1.jpg}
+    \caption{Manipulabilidad de la trayectoria.}
+    \label{cir_mani1}
+    \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes/mani2.jpg}
+    \caption{Manipulabilidad de la trayectoria.}
+    \label{cir_mani2}
+    \end{figure}
+
+
+%
+\subsection{Laberinto}
+
+\subsubsection{Planificación de movimiento}
+La tarea $T_{HRpI}$ como consigna de movimiento aplicada con fines de
+\[
+T_{HRpI} (t) = \left\{ \begin{array}{l}
+ T_{HRpI - 1} (t)\quad ;\quad t_{b0}  \le t \le t_{b1}  \\
+ T_{HRpI - 2} (t)\quad ;\quad t_{b1}  \le t \le t_{b2}  \\
+ \quad \quad  \vdots \quad \quad \quad \quad  \vdots \quad \quad \quad  \vdots  \\
+ T_{HRpI - n} (t)\quad ;\quad t_{bn - 1}  \le t \le t_{bn}  \\
+ \end{array} \right.
+\]
+
+\subsubsection{Resultados de $T_{HRpI}$ sin operario en el lazo}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  $T_{HRpI-n}$  & $T_{bn}$  & $[X_{n},Y_{n},Z_{n}]$
+   \\ \hline \hline
+  1        &  4 s      &   [$0$,$0.35$,$0.15$]    \\ \hline
+  2        &  8 s      &  [$0.20$,$0.35$,$0.15$]  \\ \hline
+  3        &  12 s     &  [$0.20$,$0.45$,$0.15$]  \\ \hline
+  4        &  16 s     &  [$-0.20$,$0.45$,$0.15$] \\ \hline
+  5        &  20 s     &  [$-0.20$,$0.55$,$0.15$] \\ \hline
+  6        &  24 s     &  [$0.20$,$0.55$,$0.15$]  \\ \hline
+  7        &  28 s     &  [$0.20$,$0.65$,$0.15$]  \\ \hline
+  8 	   &  32 s     &  [$0$,$0.65$,$0.15$]     \\ \hline
+  9 	   &  36 s     &  [$0$,$0.70$,$0.15$]     \\
+  \hline
+\end{tabular}
+    \captionof{table}{Tiempo base de convergencia y coordenadas iniciales y finales de las tareas presentadas en la Figura \ref{lab_des}}
+    \label{Parametros2}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  $Constante$   & $valor$
+   \\ \hline \hline
+  $K_{\theta}$             & [100,130,105]                   \\ \hline
+  $\alpha_{\theta}$        & [1.5,1.5,0.5]                   \\ \hline
+  $K_{x}$                  & [800,500,200]                   \\ \hline
+  $\alpha_{x}$             & [0.01,0.01,0.01]
+\\ \hline
+ [$X_{0}$,$Y_{0}$,$Z_{0}$] & [-0.005,0.3404,0.3274] $m$
+\\ \hline
+ $t_{0}$                   & 0 s
+ \\ \hline
+  \hline
+\end{tabular}
+    \captionof{table}{Valores para implementación experimental}
+    \label{Parametros3}
+\end{center}
+
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Imagenes/laberinto2.jpg}
+    \caption{Desempeño en el espacio de trabajo}
+    \label{lab_des}
+    \end{figure}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//articular//laberinto//posicion.jpg}
+    \caption{Posición en controlador articular.}
+    \label{lab_art}
+    \end{figure}
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//cartesiano//laberinto//posicion.jpg}
+    \caption{Posición en controlador cartesiano.}
+    \label{lab_car}
+    \end{figure}
+
+
+%
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//articular//laberinto//velocidad.jpg}
+    \caption{Velocidad en controlador articular.}
+    \label{lav_art}
+    \end{figure}
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//cartesiano//laberinto//velocidad.jpg}
+    \caption{Velocidad en controlador cartesiano.}
+    \label{labv_car}
+    \end{figure}
+
+
+%
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//error_lab.jpg}
+    \caption{Error de posición articular y cartesiano.}
+    \label{lab_err}
+    \end{figure}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//articular//laberinto//error_est.jpg}
+    \caption{Error extendido articular.}
+    \label{lab_ext1}
+    \end{figure}
+
+      \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//cartesiano//laberinto//error_est.jpg}
+    \caption{Error extendido cartesiano.}
+    \label{lab_ext2}
+    \end{figure}
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//fue_lab.jpg}
+    \caption{Señal de Fuerza.}
+    \label{lab_fue}
+    \end{figure}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//energialab.jpg}
+    \caption{Energía.}
+    \label{lab_ene}
+    \end{figure}
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//mani3.jpg}
+    \caption{Manipulabilidad de la trayectoria.}
+    \label{lab_mani1}
+    \end{figure}
+
+      \begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{Imagenes//mani4.jpg}
+    \caption{Manipulabilidad de la trayectoria.}
+    \label{lab_mani2}
+    \end{figure}
+
+
+\section{Comentarios}
+
+De los resultados obtenidos en este estudio comparativo del controlador lineal
+proporcional-derivativo articular y cartesiano, se puede visualizar que ambos
+controladores garantizar seguimiento de trayectorias y
+minimizar los errores de estado estable en posición y velocidad. Se garantiza la arquitectura abierta a través de la planificación de técnicas lineales de control para guiado háptico, validación de la cinemática de posición y diferencial para la planificación de movimiento en espacios articular y cartesiano útil en tareas de guiado háptico.
+
+%-------------------------------------------------------------------------
+\nocite{ex1,ex2}
+\bibliographystyle{latex8}
+\bibliography{latex8}
+
+\end{document}
+
