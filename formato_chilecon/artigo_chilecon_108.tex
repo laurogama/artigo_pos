@@ -585,14 +585,18 @@ No messages were lost during testing.
 \hline
 \bfseries Variable & Mean & STD & Min & Max \bfseries \\
 \hline\hline
-Temperature & 27.097334 & 1.162900 & 25 & 31 \\
-Humidity & 35.382760 & 4.395421 & 26 & 45 \\
-Luminance & 202.594512 & 445.754322 & 0 & 2055 \\
-Gas & 94.932747 & 17.561130 & 43 & 495 \\
+Temperature ($^{\circ}$C) & 27.097334 & 1.162900 & 25 & 31 \\
+Humidity (\%) & 35.382760 & 4.395421 & 26 & 45 \\
+Luminance (lux) & 202.594512 & 445.754322 & 0 & 2055 \\
+Gas (ppm) & 94.932747 & 17.561130 & 43 & 495 \\
 \end{tabular}
 \end{table}
 
 The python Package matplotlib\cite{Hunter:2007} was used to create the following graphics:
+
+On figure 3 it is possible to observe that the temperature in the room remains with little fluctuation with changes of only 6 degrees Celsius.
+
+The graphic of the gas presence data contains 2 spikes that represent a test of the sensor in the beginning of the data collection and other more pronounced at approximately 21:45. The source of second spike is unknown.
 
 \begin{figure}[ht!]
 \centering
@@ -601,7 +605,6 @@ The python Package matplotlib\cite{Hunter:2007} was used to create the following
 \label{temp_plot}
 \end{figure}
 
-On figure 3 it is possible to observe that the temperature in the room remains with little fluctuation with changes of only 6 degrees Celsius
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=3.5in]{plot_humidity}
