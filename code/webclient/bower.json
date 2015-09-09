@@ -1,0 +1,38 @@
+{
+  "name": "wsn web client",
+  "version": "0.0.1",
+  "homepage": "https://github.com/laurogama/artigo_pos",
+  "authors": [
+    "Lauro Gama <lauro.gama@fpf.br>"
+  ],
+  "description": "Web client to visualize WSN data",
+  "main": "index.html",
+  "moduleType": [
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "wsn",
+    "websocket",
+    "rabbitmq"
+  ],
+  "license": "Mit",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sockjs": "0.3.4",
+    "stomp-websocket": "~2.3.4",
+    "angular": "1.4.5",
+    "stompie": "0.0.5"
+  },
+  "install": {
+    "path": "static"
+  }
+}
+

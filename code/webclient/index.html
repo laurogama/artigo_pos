@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wsnApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="row" ng-controller="FPController">
+    <div class="span8 offset1">
+        <h1>Messages</h1>
+        {{messages.length}}
+        <div ng-repeat="message in messages| limitTo: -13|orderBy:'timestamp':true">
+            <div>Sender ID: <strong>{{message.id}}</strong></div>
+            <div>Timestamp: {{message.timestamp}}</div>
+            Data: {{message.data}}
+        </div>
+    </div>
+</div>
+</body>
+<script src="static/stomp-websocket/stomp.min.js"></script>
+<script src="static/angular/angular.js"></script>
+<script src="static/sockjs/sockjs.js"></script>
+<script src="static/stompie/stompie.js"></script>
+<script src="webworker.js"></script>
+</html>
