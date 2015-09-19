@@ -480,7 +480,7 @@ The dynamic nature of industries present a challenge to wired networks and the p
 
 Wireless sensor networks have advantages over wired networks because the sensor nodes are may be installed without changes in existent infrastructure by a relative small price\cite{PavithraL2015}.
 \section{Research Methodology}
-This is descriptive research. The source of information is secondary data from different sources like websites \& books mentioned at the end.
+This is descriptive research. The source of information is secondary data from different sources as thesis, articles and books. Tests were realized to validate the proposed network implementation.
 \subsection{Sensor network}
 In recent years, wireless sensor networks (WSNs) have gained worldwide attention for use in different applications. Sensor nodes are spatially distributed across a large area of interest to sense, measure, and gather information and transmit the data to the user. The nodes are typically equipped with radio transceivers, micro-controllers, and batteries.  These sensor nodes are in general equipped with one or more sensors (e.g. mechanical, thermal, biological)\cite{Ribeiro2010}. They are small in size, inexpensive, and could be deployed in large numbers. They can be used in applications such as military target tracking and surveillance, natural disaster relief, biomedical health monitoring , and industrial automation.\cite{Cheffena2012}
 Each of these nodes can sense, measure, and gather information from the environment and, based on some local decision process, they can transmit the sensed data to the user \cite{Ribeiro2010}.
@@ -490,7 +490,7 @@ This article proposes a sensor network capable of collecting data from sensors s
 \subsubsection{Network topology}
 The target for the proposed network are indoor buildings with air conditioning and artificial lightning.
 These types of building normally range to up to hundred of meters of built area with many partitions between the areas.
-The nodes don?t need to communicate between themselves, only with the server.
+There is no need for communication between the nodes, only between the nodes and the server.
 Short-range wireless technologies such as IEEE 802.15.4 in mesh network configuration are widely considered to be cost-effective solution for use in industrial settings\cite{Cheffena2012}.
 These characteristics make the star network topology the most adequate to be implemented.
 
@@ -545,7 +545,7 @@ The services implemented in the central hub may be divided between data collecti
 \subsubsection{Message Protocol}
 The messages are sent from the sensor node to the central  Hub using the MQTT protocol.
 
-MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging ?machine-to-machine? (M2M) or ?Internet of Things? world of connected devices, and for mobile applications where bandwidth and battery power are at a premium\cite{mqtt}.
+MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, designed for constrained devices and low-bandwidth, high-latency or unreliable networks. The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging "machine-to-machine" (M2M) or "Internet of Things" world of connected devices, and for mobile applications where bandwidth and battery power are at a premium\cite{mqtt}.
 
 MQTT is a publish/subscribe messaging system that allows clients to publish messages without concerning themselves about their eventual destination; messages are sent to an MQTT broker where they may be retained.
 
@@ -574,7 +574,7 @@ Each information corresponds to a key-value par that can be read easily by both 
 
 \end{lstlisting}
 \subsection{Implementation and tests}
-To validate the proposed system a prototype was implemented to collect temperature, humidity and luminance data to monitor the work conditions of a computer data server room. These kinds of rooms normally need low temperatures and low humidity to maintain the proper function of the machines. In the other way the luminance levels need to meet the minimum required to not strain workers eyesight. The prototype was used to assure that all three factors were in a range satisfactory for workers and machines. As a result of this implementation a data sample of 19315 measurements was extracted that is described in table I. The samples comprehend the period from September, 3rd, 2015 at 17:25:37 to September, 04th, 2015 at 14:08:27.
+To validate the proposed system a prototype was implemented to collect temperature, humidity, levels of flammable gas and luminance data to monitor the work conditions of a computer data server room. To maintain the proper conditions of the machines in these environments the temperature and humidity must be maintained at low levels. In the other way the luminance levels need to meet the minimum levels required to not strain workers eyesight. As a safety measure the levels of flammable gases as butane, methane and propane were also monitored. The prototype was used to assure that all 4 factors were in a range satisfactory for workers and machines. As a result of this implementation a data sample of 19315 measurements was extracted that is described in table I. The samples comprehend the period from September, 3rd, 2015 at 17:25:37 to September, 04th, 2015 at 14:08:27.
 
 No messages were lost during testing.
 \begin{table}[!ht]
@@ -597,7 +597,11 @@ The python Package matplotlib\cite{Hunter:2007} was used to create the following
 
 On figure 3 it is possible to observe that the temperature in the room remains with little fluctuation with changes of only 6 degrees Celsius.
 
-The graphic of the gas presence data contains 2 spikes that represent a test of the sensor in the beginning of the data collection and other more pronounced at approximately 21:45. The source of second spike is unknown.
+On figure 4 the humidity is shown and it is of note that the levels suffer little fluctuation.
+
+On figure 5 the luminance levels are shown with a scale of 10 times the actual value in Lux meaning that the lighting in the room remain with levels of 200 Lux approximately that is inside the recommended for indoor work.
+
+The figure 6 shows that the gas presence data contains 2 spikes that represent a test of the sensor in the beginning of the data collection and other more pronounced at approximately 21:45 as a result of testing with different gas sources.
 
 \begin{figure}[ht!]
 \centering
