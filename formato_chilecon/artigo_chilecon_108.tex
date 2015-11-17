@@ -393,8 +393,7 @@
 
 
 % The paper headers
-\markboth{Santiago de Chile, 28 al 30 de Octubre 2015}%
-{Gama \MakeLowercase{\textit{et al.}}: Wireless Sensor Network for Monitoring Environmental Factors in Industrial Installations}
+%{Gama \MakeLowercase{\textit{et al.}}: Wireless Sensor Network for Monitoring %Environmental Factors in Industrial Installations}
 % The only time the second header will appear is for the odd numbered pages
 % after the title page when using the twoside option.
 %
@@ -408,10 +407,9 @@
 
 % If you want to put a publisher's ID mark on the page you can do it like
 % this:
-%\IEEEpubid{0000--0000/00\$00.00~\copyright~2014 IEEE}
+\IEEEpubid{978-1-4673-8756-9/15/\$31.00~\copyright~2015 IEEE}
 % Remember, if you use this you must call \IEEEpubidadjcol in the second
 % column for its text to clear the IEEEpubid mark.
-
 
 
 % use for special paper notices
@@ -497,6 +495,7 @@ These characteristics make the star network topology the most adequate to be imp
 In this topology each sensor node connects directly with the central hub, sending and receiving information.
 This communication is made over WIFI where each node connects with the hub and receives an IP address.
 Each node has an internal identification in hash format that is sent with each message.
+\IEEEpubidadjcol
 The message payload from each sensor may change according with the hardware so the message format must be flexible.
 The presented architecture is able to be scaled to a high number of sensor nodes connected to only one hub. This is possible because of a efficient message protocol that is able to process hundreds of messages per second\cite{Scalagent2015}.
 
